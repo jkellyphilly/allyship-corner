@@ -4,24 +4,9 @@ let main = document.getElementsByTagName('main')[0];
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  getEvents()
-  // fetch(EVENTS_URL)
-  // .then(function(response){
-  //   return response.json();
-  // })
-  // .then(function(object) {
-  //   for(let element of object) {
-  //     let thisDiv = document.createElement('div');
-  //     thisDiv.className = "card";
-  //     thisDiv.setAttribute('data-id', element.id);
-  //
-  //     let thisName = document.createElement('p');
-  //     thisName.innerHTML = element.name;
-  //     thisDiv.appendChild(thisName);
-  //
-  //     main.appendChild(thisDiv);
-  //   }
-  // })
+  getEvents();
+
+  // TODO: create a show/hide section for the "create" functionality
 })
 
 function getEvents() {
@@ -35,7 +20,6 @@ function getEvents() {
   })
 }
 
-// TODO: figure out if this can have a default number of attendees (zero)
 function createNewEvent(name, imagePath, location, attendees=0) {
 
   let formData = {
@@ -55,11 +39,10 @@ function createNewEvent(name, imagePath, location, attendees=0) {
   }
 
   fetch(EVENTS_URL, configObj)
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(object) {
-    console.log(object);
+  .then(resp => resp.json())
+  .then(event => {
+    const newEvent = new Event(event.id, event);
+    newEvent.renderEventCard();
   })
 }
 
