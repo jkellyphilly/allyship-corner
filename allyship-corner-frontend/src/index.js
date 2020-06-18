@@ -3,24 +3,37 @@ const EVENTS_URL = `${BASE_URL}/events`;
 let main = document.getElementsByTagName('main')[0];
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetch(EVENTS_URL)
-  .then(function(response){
-    return response.json();
-  })
-  .then(function(object) {
-    for(let element of object) {
-      let thisDiv = document.createElement('div');
-      thisDiv.className = "card";
-      thisDiv.setAttribute('data-id', element.id);
 
-      let thisName = document.createElement('p');
-      thisName.innerHTML = element.name;
-      thisDiv.appendChild(thisName);
-
-      main.appendChild(thisDiv);
-    }
-  })
+  getEvents()
+  // fetch(EVENTS_URL)
+  // .then(function(response){
+  //   return response.json();
+  // })
+  // .then(function(object) {
+  //   for(let element of object) {
+  //     let thisDiv = document.createElement('div');
+  //     thisDiv.className = "card";
+  //     thisDiv.setAttribute('data-id', element.id);
+  //
+  //     let thisName = document.createElement('p');
+  //     thisName.innerHTML = element.name;
+  //     thisDiv.appendChild(thisName);
+  //
+  //     main.appendChild(thisDiv);
+  //   }
+  // })
 })
+
+function getEvents() {
+  fetch(EVENTS_URL)
+  .then(resp => resp.json())
+  .then(events => {
+    events.forEach(event => {
+      const thisEvent = new Event(event.id, event);
+      thisEvent.renderEventCard();
+    });
+  })
+}
 
 // TODO: figure out if this can have a default number of attendees (zero)
 function createNewEvent(name, imagePath, location, attendees=0) {
