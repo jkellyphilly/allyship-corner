@@ -8,6 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return response.json();
   })
   .then(function(object) {
-    console.log(object);
+    for(let element of object) {
+      let thisDiv = document.createElement('div');
+      thisDiv.className = "card";
+      thisDiv.setAttribute('data-id', element.id);
+
+      let thisName = document.createElement('p');
+      thisName.innerHTML = element.name;
+      thisDiv.appendChild(thisName);
+
+      main.appendChild(thisDiv);
+    }
   })
 })
