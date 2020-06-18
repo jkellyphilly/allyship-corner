@@ -46,7 +46,30 @@ function createNewEvent(name, imagePath, location, attendees=0) {
   })
 }
 
-// TODO: add a "remove event" button to the event
+function updateEvent(eventId, name, imagePath, location, attendees) {
+  let formData = {
+    name: name,
+    image_url: imagePath,
+    location: location,
+    attendees: attendees
+  }
+
+  let configObj = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify(formData)
+  }
+
+  fetch(`${EVENTS_URL}/${eventId}`, configObj)
+  .then(function(response) {
+    console.log(response)
+  })
+}
+
+// TODO: change function type to be formatted better
 function removeEvent(eventId) {
   const configObj = {
     method: 'DELETE'
@@ -54,6 +77,6 @@ function removeEvent(eventId) {
 
   fetch(`${EVENTS_URL}/${eventId}`, configObj)
   .then(function(response) {
-    console.log(response)
+    alert("Deletion successful - event removed");
   })
 }

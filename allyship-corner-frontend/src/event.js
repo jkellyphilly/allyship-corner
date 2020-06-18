@@ -18,6 +18,10 @@ class Event {
     thisName.innerHTML = this.name;
     thisDiv.appendChild(thisName);
 
+    let numAttendees = document.createElement('p');
+    numAttendees.innerHTML = `${this.attendees} are attending`;
+    thisDiv.appendChild(numAttendees);
+
     let deleteButton = document.createElement('button');
     deleteButton.innerText = "Delete Event";
     deleteButton.addEventListener('click', () => {
@@ -25,6 +29,14 @@ class Event {
       thisDiv.remove();
     })
     thisDiv.appendChild(deleteButton);
+
+    let attendBtn = document.createElement('button');
+    attendBtn.innerText = "I'm interested";
+    attendBtn.addEventListener('click', () => {
+      // TODO: define what happens here
+      console.log("I'm interested");
+    })
+    thisDiv.appendChild(attendBtn);
 
     main.appendChild(thisDiv);
   }
