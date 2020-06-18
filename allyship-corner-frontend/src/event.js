@@ -18,6 +18,14 @@ class Event {
     thisName.innerHTML = this.name;
     thisDiv.appendChild(thisName);
 
+    let deleteButton = document.createElement('button');
+    deleteButton.innerText = "Delete Event";
+    deleteButton.addEventListener('click', () => {
+      removeEvent(this.id);
+      thisDiv.remove();
+    })
+    thisDiv.appendChild(deleteButton);
+
     main.appendChild(thisDiv);
   }
 }
