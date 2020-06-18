@@ -21,3 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 })
+
+function removeEvent(eventId) {
+  const configObj = {
+    method: 'DELETE'
+  }
+
+  fetch(`${EVENTS_URL}/${eventId}`, configObj)
+  .then(function(response) {
+    console.log(response)
+  })
+}
