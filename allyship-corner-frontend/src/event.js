@@ -18,6 +18,10 @@ class Event {
     thisName.innerHTML = this.name;
     thisDiv.appendChild(thisName);
 
+    let thisLocation = document.createElement('p');
+    thisLocation.innerHTML = this.location;
+    thisDiv.appendChild(thisLocation);
+
     let numAttendees = document.createElement('p');
     numAttendees.innerHTML = `${this.attendees} are attending`;
     thisDiv.appendChild(numAttendees);
