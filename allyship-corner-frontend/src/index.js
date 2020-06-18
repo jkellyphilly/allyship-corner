@@ -22,6 +22,35 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 })
 
+// TODO: figure out if this can have a default number of attendees (zero)
+function createNewEvent(name, imagePath, location, attendees=0) {
+
+  let formData = {
+    name: name,
+    image_url: imagePath,
+    location: location,
+    attendees: attendees
+  }
+
+  let configObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify(formData)
+  }
+
+  fetch(EVENTS_URL, configObj)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(object) {
+    console.log(object);
+  })
+}
+
+// TODO: add a "remove event" button to the event
 function removeEvent(eventId) {
   const configObj = {
     method: 'DELETE'
