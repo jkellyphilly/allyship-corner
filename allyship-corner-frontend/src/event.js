@@ -5,6 +5,7 @@ class Event {
     this.location = eventAttributes.location;
     this.attendees = eventAttributes.attendees;
     this.imagePath = eventAttributes.image_url;
+    this.liked = false; // TODO: change this name
     Event.all.push(this);
   }
 
@@ -37,9 +38,17 @@ class Event {
     let attendBtn = document.createElement('button');
     attendBtn.innerText = "I'm interested";
     attendBtn.addEventListener('click', () => {
-      // TODO: define what happens here
-      console.log("I'm interested");
-    })
+      if (this.liked) {
+        this.attendees -= 1;
+        attendBtn.innerText = "I'm interested";
+      } else {
+        this.attendees += 1;
+        attendBtn.innerText = "I can't go";
+      }
+      this.liked = !this.liked;
+      numAttendees.innerHTML = `${this.attendees} are attending`;
+      updateEvent(this.id, this.name, this.imagePath, this.location, this.attendees);
+    });
     thisDiv.appendChild(attendBtn);
 
     main.appendChild(thisDiv);
