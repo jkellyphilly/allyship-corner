@@ -39,12 +39,13 @@ function showAddEvent() {
   });
 }
 
+// TODO: bring back the events & make them standardized
 function getEvents() {
   fetch(EVENTS_URL)
   .then(resp => resp.json())
   .then(events => {
-    events.forEach(event => {
-      const thisEvent = new Event(event.id, event);
+    events.data.forEach(event => {
+      const thisEvent = new Event(event.id, event.attributes);
       thisEvent.renderEventCard();
     });
   })

@@ -5,6 +5,7 @@ class Event {
     this.location = eventAttributes.location;
     this.attendees = eventAttributes.attendees;
     this.imagePath = eventAttributes.image_url;
+    this.comments = eventAttributes.comments;
     this.liked = false; // TODO: change this name
     Event.all.push(this);
   }
@@ -50,6 +51,8 @@ class Event {
       updateEvent(this.id, this.name, this.imagePath, this.location, this.attendees);
     });
     thisDiv.appendChild(attendBtn);
+
+    console.log(this.comments);
 
     main.appendChild(thisDiv);
   }
