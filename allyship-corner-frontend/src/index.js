@@ -5,11 +5,17 @@ let addEvent = false;
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  showAddEvent();
+
+  getEvents();
+
+})
+
+function showAddEvent() {
   // Show/hide the new event form
   const addBtn = document.querySelector("#new-event-btn");
   const eventFormContainer = document.querySelector(".new-event-container");
   addBtn.addEventListener("click", () => {
-    // hide & seek with the form
     addEvent = !addEvent;
     if (addEvent) {
       eventFormContainer.style.display = "block";
@@ -18,9 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  getEvents();
+  // Upon submission, create a new event
+  const createNewEventForm = document.querySelector(".add-event-form");
+  createNewEventForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const eventName = document.getElementsByName('name')[0].value;
+    const eventLocation = document.getElementsByName('location')[0].value;
+    const eventImgPath = document.getElementsByName('image')[0].value;
 
-})
+    createNewEvent(eventName, eventImgPath, eventLocation);
+
+    addEvent = !addEvent;
+    eventFormContainer.style.display = "none";
+  });
+}
 
 function getEvents() {
   fetch(EVENTS_URL)
