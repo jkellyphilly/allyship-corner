@@ -1,12 +1,25 @@
 const BASE_URL = "http://localhost:3000";
 const EVENTS_URL = `${BASE_URL}/events`;
 let main = document.getElementsByTagName('main')[0];
+let addEvent = false;
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Show/hide the new event form
+  const addBtn = document.querySelector("#new-event-btn");
+  const eventFormContainer = document.querySelector(".new-event-container");
+  addBtn.addEventListener("click", () => {
+    // hide & seek with the form
+    addEvent = !addEvent;
+    if (addEvent) {
+      eventFormContainer.style.display = "block";
+    } else {
+      eventFormContainer.style.display = "none";
+    }
+  });
+
   getEvents();
 
-  // TODO: create a show/hide section for the "create" functionality
 })
 
 function getEvents() {

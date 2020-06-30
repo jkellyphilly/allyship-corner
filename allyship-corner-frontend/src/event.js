@@ -53,6 +53,10 @@ class Event {
 
     main.appendChild(thisDiv);
   }
+
+  static findById(id) {
+    return this.all.find(event => event.id === id);
+  }
 }
 
 Event.all = [];

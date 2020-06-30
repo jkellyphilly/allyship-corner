@@ -6,6 +6,40 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <!-- Add some styling here -->
+
+    <div class="new-event-container" style="display:none">
+      <form class="add-event-form">
+        <h3>Create an event!</h3>
+
+        <input
+          type="text"
+          name="name"
+          value=""
+          placeholder="Enter the event's name..."
+          class="input-text"
+        />
+        <br />
+        <input
+          type="text"
+          name="image"
+          value=""
+          placeholder="Enter the event's image URL..."
+          class="input-text"
+        />
+        <br />
+        <input
+          type="submit"
+          name="submit"
+          value="Create New Event"
+          class="submit"
+        />
+      </form>
+    </div>
+    <p style='text-align:center'>
+      Make a difference in this world. <button id="new-event-btn">Add a new event!</button>
+    </p>
+
     <header>
       <h2>Check here for events for social justice!</h2>
     </header>
