@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   showAddEvent();
 
+  // Fetch and render our information
   getEvents();
 
 })
@@ -39,12 +40,11 @@ function showAddEvent() {
   });
 }
 
-// TODO: bring back the events & make them standardized
 function getEvents() {
   fetch(EVENTS_URL)
   .then(resp => resp.json())
-  .then(events => {
-    events.data.forEach(event => {
+  .then(response => {
+    response.data.forEach(event => {
       const thisEvent = new Event(event.id, event.attributes);
       thisEvent.renderEventCard();
     });

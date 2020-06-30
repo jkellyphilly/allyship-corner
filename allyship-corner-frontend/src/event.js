@@ -52,7 +52,10 @@ class Event {
     });
     thisDiv.appendChild(attendBtn);
 
-    console.log(this.comments);
+    this.comments.map(comment => {
+      const thisComment = new Comment(comment.id, comment);
+      thisComment.renderComment();
+    });
 
     main.appendChild(thisDiv);
   }
