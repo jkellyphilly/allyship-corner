@@ -26,7 +26,7 @@ class Comment {
     submitComment.innerHTML = ">";
     submitComment.addEventListener('click', (event) => {
       event.preventDefault();
-      console.log(commentContent.value);
+      createComment(commentContent.value, myDiv.getAttribute('data-id'));
     })
 
     newComment.appendChild(commentLabel);
@@ -41,5 +41,34 @@ class Comment {
   }
 }
 
-
 Comment.all = [];
+
+function createComment(content, eventId, username="Anonymous") {
+  console.log("content", content);
+  console.log("Event ID", eventId);
+  console.log("Username", username);
+  console.log(COMMENTS_URL);
+
+  let formData = {
+    content: content,
+    event_id: eventId,
+    username: username
+  }
+
+  let configObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify(formData)
+  }
+
+  fetch(COMMENTS_URL, configObj)
+  .then(resp => resp.json())
+  .then(comment => {
+    const newComment = new Comment(comment.id, comment);
+    console.log(newComment);
+  })
+
+}

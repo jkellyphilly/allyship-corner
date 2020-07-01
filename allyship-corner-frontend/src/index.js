@@ -1,15 +1,16 @@
 const BASE_URL = "http://localhost:3000";
 const EVENTS_URL = `${BASE_URL}/events`;
+const COMMENTS_URL = `${BASE_URL}/comments`;
 let main = document.getElementsByTagName('main')[0];
 let addEvent = false;
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Build the hidden form where users can create a new event
   showAddEvent();
 
   // Fetch and render our information
   getEvents();
-
 })
 
 function showAddEvent() {
