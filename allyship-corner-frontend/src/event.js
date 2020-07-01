@@ -55,6 +55,7 @@ class Event {
     // Comments
     // TODO: add a special class name for the comments div
     let commentsDiv = document.createElement('div');
+    // console.log(this.comments);
     this.comments.map(comment => {
       const thisComment = new Comment(comment.id, comment);
       thisComment.renderComment(commentsDiv);

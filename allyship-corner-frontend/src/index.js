@@ -73,7 +73,7 @@ function createNewEvent(name, imagePath, location, attendees=0) {
   fetch(EVENTS_URL, configObj)
   .then(resp => resp.json())
   .then(event => {
-    const newEvent = new Event(event.id, event);
+    const newEvent = new Event(event.data.id, event.data.attributes);
     newEvent.renderEventCard();
   })
 }
