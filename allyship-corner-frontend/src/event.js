@@ -54,10 +54,11 @@ class Event {
 
     this.comments.map(comment => {
       const thisComment = new Comment(comment.id, comment);
-      thisComment.renderComment();
+      thisComment.renderComment(thisDiv);
     });
 
     main.appendChild(thisDiv);
+
   }
 
   static findById(id) {
