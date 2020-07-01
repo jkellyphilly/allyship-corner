@@ -78,6 +78,7 @@ function createNewEvent(name, imagePath, location, attendees=0) {
   })
 }
 
+// TODO: this needs to be updated to include comments
 function updateEvent(eventId, name, imagePath, location, attendees) {
   let formData = {
     name: name,

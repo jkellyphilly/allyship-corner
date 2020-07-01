@@ -8,12 +8,19 @@ class Comment {
   }
 
   renderComment(myDiv) {
-    let comment = document.createElement('p');
+    let comment = document.createElement('li');
     comment.innerHTML = `${this.username} says: ${this.content}`;
+    let deleteButton = document.createElement('button');
+    deleteButton.innerText = "X";
+    deleteButton.addEventListener('click', () => {
+      removeComment(this.id);
+      comment.remove();
+    });
+    comment.appendChild(deleteButton);
     myDiv.appendChild(comment);
   }
 
-  static renderNewCommentForm(myDiv) {
+  static renderNewCommentForm(myDiv, commentDiv) {
     let newComment = document.createElement('form');
 
     let commentLabel = document.createElement('label');
@@ -26,7 +33,8 @@ class Comment {
     submitComment.innerHTML = ">";
     submitComment.addEventListener('click', (event) => {
       event.preventDefault();
-      createComment(commentContent.value, myDiv.getAttribute('data-id'));
+      createComment(commentDiv, commentContent.value, myDiv.getAttribute('data-id'));
+      commentContent.value = "";
     })
 
     newComment.appendChild(commentLabel);
@@ -43,11 +51,7 @@ class Comment {
 
 Comment.all = [];
 
-function createComment(content, eventId, username="Anonymous") {
-  console.log("content", content);
-  console.log("Event ID", eventId);
-  console.log("Username", username);
-  console.log(COMMENTS_URL);
+function createComment(myDiv, content, eventId, username="Anonymous") {
 
   let formData = {
     content: content,
@@ -68,7 +72,19 @@ function createComment(content, eventId, username="Anonymous") {
   .then(resp => resp.json())
   .then(comment => {
     const newComment = new Comment(comment.id, comment);
-    console.log(newComment);
+    newComment.renderComment(myDiv);
   })
+}
 
+// TODO: change function type to be formatted better
+function removeComment(commentId) {
+  const configObj = {
+    method: 'DELETE'
+  }
+
+  fetch(`${COMMENTS_URL}/${commentId}`, configObj)
+  .then(function(response) {
+    console.log(response);
+    alert("Comment deleted successfully");
+  })
 }

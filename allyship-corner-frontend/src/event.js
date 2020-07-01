@@ -44,7 +44,7 @@ class Event {
         attendBtn.innerText = "I'm interested";
       } else {
         this.attendees += 1;
-        attendBtn.innerText = "I can't go";
+        attendBtn.innerText = "I can no longer attend";
       }
       this.liked = !this.liked;
       numAttendees.innerHTML = `${this.attendees} are attending`;
@@ -52,12 +52,15 @@ class Event {
     });
     thisDiv.appendChild(attendBtn);
 
-    // List out all the comments
+    // Comments
+    // TODO: add a special class name for the comments div
+    let commentsDiv = document.createElement('div');
     this.comments.map(comment => {
       const thisComment = new Comment(comment.id, comment);
-      thisComment.renderComment(thisDiv);
+      thisComment.renderComment(commentsDiv);
     });
-    Comment.renderNewCommentForm(thisDiv);
+    thisDiv.appendChild(commentsDiv);
+    Comment.renderNewCommentForm(thisDiv, commentsDiv);
 
     main.appendChild(thisDiv);
 
