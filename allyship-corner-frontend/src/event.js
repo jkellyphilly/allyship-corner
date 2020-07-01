@@ -52,10 +52,12 @@ class Event {
     });
     thisDiv.appendChild(attendBtn);
 
+    // List out all the comments
     this.comments.map(comment => {
       const thisComment = new Comment(comment.id, comment);
       thisComment.renderComment(thisDiv);
     });
+    Comment.renderNewCommentForm(thisDiv);
 
     main.appendChild(thisDiv);
 
