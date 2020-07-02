@@ -22,12 +22,13 @@ function createNewUser(divToRemove, username, password) {
     if (response.error) {
       alert(response.error);
     } else {
-      console.log(response);
+      console.log("User creation response", response);
       currentUsername = response.user.data.attributes.username;
       currentUserId = response.user.data.id;
+
+      window.sessionStorage.accessToken = response.jwt;
       alert('Succesfully created profile - welcome!');
-      console.log(currentUsername);
-      console.log(currentUserId);
+
       divToRemove.remove();
       loadPageWithValidUser();
     }

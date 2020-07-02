@@ -75,14 +75,18 @@ class Event {
 Event.all = [];
 
 function getEvents() {
-  fetch(EVENTS_URL)
+  fetch(EVENTS_URL, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${window.sessionStorage.accessToken}`
+    }
+  })
   .then(resp => resp.json())
   .then(response => {
-    // response.data.forEach(event => {
-    //   const thisEvent = new Event(event.id, event.attributes);
-    //   thisEvent.renderEventCard();
-    // });
-    console.log(response);
+    response.data.forEach(event => {
+      const thisEvent = new Event(event.id, event.attributes);
+      thisEvent.renderEventCard();
+    });
   })
 }
 

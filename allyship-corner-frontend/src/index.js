@@ -6,6 +6,7 @@ let main = document.getElementsByTagName('main')[0];
 let addEvent = false;
 let currentUsername;
 let currentUserId;
+let token;
 
 document.addEventListener('DOMContentLoaded', () => {
 
