@@ -58,41 +58,6 @@ function makeSignUpAndLogin() {
   main.appendChild(welcomeUsers);
 }
 
-function createNewUser(divToRemove, username, password) {
-
-  let formData = {
-    user: {
-      username: username,
-      password: password
-    }
-  }
-
-  let configObj = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify(formData)
-  }
-
-  fetch(USERS_URL, configObj)
-  .then(resp => resp.json())
-  .then(response => {
-    if (response.error) {
-      alert(response.error);
-    } else {
-      currentUsername = response.username;
-      currentUserId = response.id;
-      alert('Succesfully created profile - welcome!');
-      divToRemove.remove();
-      loadPageWithValidUser();
-    }
-  })
-  .catch(err => console.log(err))
-
-}
-
 function loadPageWithValidUser() {
   // Build the hidden form where users can create a new event
   showAddEvent();
@@ -127,77 +92,4 @@ function showAddEvent() {
     addEvent = !addEvent;
     eventFormContainer.style.display = "none";
   });
-}
-
-function getEvents() {
-  fetch(EVENTS_URL)
-  .then(resp => resp.json())
-  .then(response => {
-    response.data.forEach(event => {
-      const thisEvent = new Event(event.id, event.attributes);
-      thisEvent.renderEventCard();
-    });
-  })
-}
-
-function createNewEvent(name, imagePath, location, attendees=0) {
-
-  let formData = {
-    name: name,
-    image_url: imagePath,
-    location: location,
-    attendees: attendees
-  }
-
-  let configObj = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify(formData)
-  }
-
-  fetch(EVENTS_URL, configObj)
-  .then(resp => resp.json())
-  .then(event => {
-    const newEvent = new Event(event.data.id, event.data.attributes);
-    newEvent.renderEventCard();
-  })
-}
-
-// TODO: this needs to be updated to include comments
-function updateEvent(eventId, name, imagePath, location, attendees) {
-  let formData = {
-    name: name,
-    image_url: imagePath,
-    location: location,
-    attendees: attendees
-  }
-
-  let configObj = {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify(formData)
-  }
-
-  fetch(`${EVENTS_URL}/${eventId}`, configObj)
-  .then(function(response) {
-    console.log(response)
-  })
-}
-
-// TODO: change function type to be formatted better
-function removeEvent(eventId) {
-  const configObj = {
-    method: 'DELETE'
-  }
-
-  fetch(`${EVENTS_URL}/${eventId}`, configObj)
-  .then(function(response) {
-    alert("Deletion successful - event removed");
-  })
 }
