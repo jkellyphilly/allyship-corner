@@ -45,8 +45,7 @@ function makeSignUpAndLogin() {
   submitUser.innerHTML = ">";
   submitUser.addEventListener('click', (event) => {
     event.preventDefault();
-    createNewUser(usernameInput.value, passwordInput.value);
-    welcomeUsers.remove();
+    createNewUser(welcomeUsers, usernameInput.value, passwordInput.value);
   })
 
   newUser.appendChild(username);
@@ -59,7 +58,7 @@ function makeSignUpAndLogin() {
   main.appendChild(welcomeUsers);
 }
 
-function createNewUser(username, password) {
+function createNewUser(divToRemove, username, password) {
 
   let formData = {
     user: {
@@ -80,10 +79,15 @@ function createNewUser(username, password) {
   fetch(USERS_URL, configObj)
   .then(resp => resp.json())
   .then(response => {
-    currentUsername = response.username;
-    currentUserId = response.id;
-    alert('Succesfully created profile - welcome!');
-    loadPageWithValidUser();
+    if (response.error) {
+      alert(response.error);
+    } else {
+      currentUsername = response.username;
+      currentUserId = response.id;
+      alert('Succesfully created profile - welcome!');
+      divToRemove.remove();
+      loadPageWithValidUser();
+    }
   })
   .catch(err => console.log(err))
 
