@@ -92,15 +92,19 @@ function getEvents() {
 
 function createNewEvent(name, imagePath, location, attendees=0) {
   let formData = {
-    name: name,
-    image_url: imagePath,
-    location: location,
-    attendees: attendees
+    event: {
+      name: name,
+      image_url: imagePath,
+      location: location,
+      user_id: window.sessionStorage.currentUserId,
+      attendees: attendees
+    }
   }
 
   let configObj = {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${window.sessionStorage.accessToken}`,
       "Content-Type": "application/json",
       Accept: "application/json"
     },
