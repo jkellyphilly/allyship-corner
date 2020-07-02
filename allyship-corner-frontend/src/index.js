@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Create sign up form
   createSignUpForm(newUserSection, welcomeUsers);
   // Create log in form
-  createLogInForm(logInSection);
+  createLogInForm(logInSection, welcomeUsers);
 
   welcomeUsers.appendChild(newUserSection);
   welcomeUsers.appendChild(logInSection);
@@ -90,7 +90,8 @@ function createSignUpForm(parent, divToRemove) {
   submitUser.innerHTML = ">";
   submitUser.addEventListener('click', (event) => {
     event.preventDefault();
-    createNewUser(divToRemove, usernameInput.value, passwordInput.value);
+    // createNewUser(divToRemove, usernameInput.value, passwordInput.value);
+    logInOrSignUp(divToRemove, usernameInput.value, passwordInput.value, true);
   })
 
   newUser.appendChild(title);
@@ -129,7 +130,7 @@ function createLogInForm(parent, divToRemove) {
   submitUser.innerHTML = ">";
   submitUser.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log('Log in hit!');
+    logInOrSignUp(divToRemove, usernameInput.value, passwordInput.value, false)
   })
 
   form.appendChild(title);

@@ -1,4 +1,4 @@
-function createNewUser(divToRemove, username, password) {
+function logInOrSignUp(divToRemove, username, password, isSignUp) {
 
   let formData = {
     user: {
@@ -16,28 +16,23 @@ function createNewUser(divToRemove, username, password) {
     body: JSON.stringify(formData)
   }
 
-  fetch(USERS_URL, configObj)
+  const fetchURL = isSignUp ? USERS_URL : `${BASE_URL}/login`;
+  const myWording = isSignUp ? 'signed up' : 'logged in';
+
+  fetch(fetchURL, configObj)
   .then(resp => resp.json())
   .then(response => {
-    if (response.error) {
-      alert(response.error);
+    if (response.message) {
+      alert(response.message);
     } else {
-      console.log("User creation response", response);
-      currentUsername = response.user.data.attributes.username;
-      currentUserId = response.user.data.id;
-
       window.sessionStorage.accessToken = response.jwt;
       window.sessionStorage.currentUsername = response.user.data.attributes.username;
       window.sessionStorage.currentUserId = response.user.data.id;
-      alert('Succesfully created profile - welcome!');
+      alert(`Succesfully ${myWording} - welcome!`);
 
       divToRemove.remove();
       loadPageWithValidUser();
     }
   })
   .catch(err => console.log(err))
-}
-
-function logInUser(divToRemove, username, password) {
-  
 }
