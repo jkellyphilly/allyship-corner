@@ -131,6 +131,7 @@ function updateEvent(eventId, name, imagePath, location, attendees) {
   let configObj = {
     method: "PATCH",
     headers: {
+      Authorization: `Bearer ${window.sessionStorage.accessToken}`,
       "Content-Type": "application/json",
       Accept: "application/json"
     },
@@ -146,7 +147,10 @@ function updateEvent(eventId, name, imagePath, location, attendees) {
 // TODO: change function type to be formatted better
 function removeEvent(eventId) {
   const configObj = {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${window.sessionStorage.accessToken}`
+    }
   }
 
   fetch(`${EVENTS_URL}/${eventId}`, configObj)
