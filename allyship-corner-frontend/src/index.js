@@ -9,14 +9,9 @@ let currentUserId;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Show sign up option
+  // Show sign up and log in options
   makeSignUpAndLogin();
 
-  // // Build the hidden form where users can create a new event
-  // showAddEvent();
-  //
-  // // Fetch and render our information
-  // getEvents();
 })
 
 function makeSignUpAndLogin() {
@@ -50,8 +45,8 @@ function makeSignUpAndLogin() {
   submitUser.innerHTML = ">";
   submitUser.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log(usernameInput.value, passwordInput.value);
     createNewUser(usernameInput.value, passwordInput.value);
+    welcomeUsers.remove();
   })
 
   newUser.appendChild(username);
@@ -82,18 +77,24 @@ function createNewUser(username, password) {
     body: JSON.stringify(formData)
   }
 
-  console.log(configObj);
-
   fetch(USERS_URL, configObj)
   .then(resp => resp.json())
-  .then(resp => console.log(resp))
+  .then(response => {
+    currentUsername = response.username;
+    currentUserId = response.id;
+    alert('Succesfully created profile - welcome!');
+    loadPageWithValidUser();
+  })
   .catch(err => console.log(err))
 
-  //   {
-  //   const newEvent = new Event(event.data.id, event.data.attributes);
-  //   newEvent.renderEventCard();
-  // })
+}
 
+function loadPageWithValidUser() {
+  // Build the hidden form where users can create a new event
+  showAddEvent();
+
+  // Fetch and render our information
+  getEvents();
 }
 
 function showAddEvent() {
