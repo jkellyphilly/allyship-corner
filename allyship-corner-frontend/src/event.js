@@ -6,6 +6,10 @@ class Event {
     this.attendees = eventAttributes.attendees;
     this.imagePath = eventAttributes.image_url;
     this.comments = eventAttributes.comments;
+    this.userId = eventAttributes.user.id;
+    this.userName = eventAttributes.user.username;
+
+    // TODO: add in the date of creation ?
     this.liked = false; // TODO: change this name
     Event.all.push(this);
   }
@@ -28,13 +32,9 @@ class Event {
     numAttendees.innerHTML = `${this.attendees} are attending`;
     thisDiv.appendChild(numAttendees);
 
-    let deleteButton = document.createElement('button');
-    deleteButton.innerText = "Delete Event";
-    deleteButton.addEventListener('click', () => {
-      removeEvent(this.id);
-      thisDiv.remove();
-    })
-    thisDiv.appendChild(deleteButton);
+    if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
+      renderDeleteButton(thisDiv, this.id);
+    }
 
     let attendBtn = document.createElement('button');
     attendBtn.innerText = "I'm interested";
@@ -157,4 +157,15 @@ function removeEvent(eventId) {
   .then(function(response) {
     alert("Deletion successful - event removed");
   })
+}
+
+// Function for rendering the delete button for an event
+function renderDeleteButton(parent, eventId) {
+  let deleteButton = document.createElement('button');
+  deleteButton.innerText = "Delete Event";
+  deleteButton.addEventListener('click', () => {
+    removeEvent(eventId);
+    parent.remove();
+  })
+  parent.appendChild(deleteButton);
 }
