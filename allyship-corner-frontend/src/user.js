@@ -27,6 +27,8 @@ function createNewUser(divToRemove, username, password) {
       currentUserId = response.user.data.id;
 
       window.sessionStorage.accessToken = response.jwt;
+      window.sessionStorage.currentUsername = response.user.data.attributes.username;
+      window.sessionStorage.currentUserId = response.user.data.id;
       alert('Succesfully created profile - welcome!');
 
       divToRemove.remove();
@@ -34,5 +36,8 @@ function createNewUser(divToRemove, username, password) {
     }
   })
   .catch(err => console.log(err))
+}
 
+function logInUser(divToRemove, username, password) {
+  
 }

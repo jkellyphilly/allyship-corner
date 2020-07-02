@@ -6,58 +6,24 @@ let main = document.getElementsByTagName('main')[0];
 let addEvent = false;
 let currentUsername;
 let currentUserId;
-let token;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Show sign up and log in options
-  makeSignUpAndLogin();
-
-})
-
-function makeSignUpAndLogin() {
   let welcomeUsers = document.createElement('div');
   let newUserSection = document.createElement('div');
-  let loginSection = document.createElement('div');
+  let logInSection = document.createElement('div');
 
-  let newUser = document.createElement('form');
-
-  let username = document.createElement('li');
-  let usernameLabel = document.createElement('label');
-  usernameLabel.innerHTML = "Username: ";
-  let usernameInput = document.createElement('input');
-  usernameInput.setAttribute("type", "text");
-
-  username.appendChild(usernameLabel);
-  username.appendChild(usernameInput);
-
-  let password = document.createElement('li');
-
-  let passwordLabel = document.createElement('label');
-  passwordLabel.innerHTML = "Password: ";
-
-  let passwordInput = document.createElement('input');
-  passwordInput.setAttribute("type", "password");
-
-  password.appendChild(passwordLabel);
-  password.appendChild(passwordInput);
-
-  let submitUser = document.createElement('button');
-  submitUser.innerHTML = ">";
-  submitUser.addEventListener('click', (event) => {
-    event.preventDefault();
-    createNewUser(welcomeUsers, usernameInput.value, passwordInput.value);
-  })
-
-  newUser.appendChild(username);
-  newUser.appendChild(password);
-  newUser.appendChild(submitUser);
-  newUserSection.appendChild(newUser);
+  // Create sign up form
+  createSignUpForm(newUserSection, welcomeUsers);
+  // Create log in form
+  createLogInForm(logInSection);
 
   welcomeUsers.appendChild(newUserSection);
+  welcomeUsers.appendChild(logInSection);
 
   main.appendChild(welcomeUsers);
-}
+
+})
 
 function loadPageWithValidUser() {
   // Build the hidden form where users can create a new event
@@ -93,4 +59,82 @@ function showAddEvent() {
     addEvent = !addEvent;
     eventFormContainer.style.display = "none";
   });
+}
+
+function createSignUpForm(parent, divToRemove) {
+  let newUser = document.createElement('form');
+  let title = document.createElement('p');
+  title.innerHTML = "Sign up!";
+
+  let username = document.createElement('li');
+  let usernameLabel = document.createElement('label');
+  usernameLabel.innerHTML = "Username: ";
+  let usernameInput = document.createElement('input');
+  usernameInput.setAttribute("type", "text");
+
+  username.appendChild(usernameLabel);
+  username.appendChild(usernameInput);
+
+  let password = document.createElement('li');
+
+  let passwordLabel = document.createElement('label');
+  passwordLabel.innerHTML = "Password: ";
+
+  let passwordInput = document.createElement('input');
+  passwordInput.setAttribute("type", "password");
+
+  password.appendChild(passwordLabel);
+  password.appendChild(passwordInput);
+
+  let submitUser = document.createElement('button');
+  submitUser.innerHTML = ">";
+  submitUser.addEventListener('click', (event) => {
+    event.preventDefault();
+    createNewUser(divToRemove, usernameInput.value, passwordInput.value);
+  })
+
+  newUser.appendChild(title);
+  newUser.appendChild(username);
+  newUser.appendChild(password);
+  newUser.appendChild(submitUser);
+  parent.appendChild(newUser);
+}
+
+function createLogInForm(parent, divToRemove) {
+  let form = document.createElement('form');
+  let title = document.createElement('p');
+  title.innerHTML = "Log in!";
+
+  let username = document.createElement('li');
+  let usernameLabel = document.createElement('label');
+  usernameLabel.innerHTML = "Username: ";
+  let usernameInput = document.createElement('input');
+  usernameInput.setAttribute("type", "text");
+
+  username.appendChild(usernameLabel);
+  username.appendChild(usernameInput);
+
+  let password = document.createElement('li');
+
+  let passwordLabel = document.createElement('label');
+  passwordLabel.innerHTML = "Password: ";
+
+  let passwordInput = document.createElement('input');
+  passwordInput.setAttribute("type", "password");
+
+  password.appendChild(passwordLabel);
+  password.appendChild(passwordInput);
+
+  let submitUser = document.createElement('button');
+  submitUser.innerHTML = ">";
+  submitUser.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log('Log in hit!');
+  })
+
+  form.appendChild(title);
+  form.appendChild(username);
+  form.appendChild(password);
+  form.appendChild(submitUser);
+  parent.appendChild(form);
 }
