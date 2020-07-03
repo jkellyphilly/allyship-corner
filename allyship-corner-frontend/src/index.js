@@ -51,12 +51,11 @@ function showAddEvent() {
   const createNewEventForm = document.querySelector(".add-event-form");
   createNewEventForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    const eventName = document.getElementsByName('name')[0].value;
-    const eventLocation = document.getElementsByName('location')[0].value;
-    const eventImgPath = document.getElementsByName('image')[0].value;
+    const eventName = document.getElementsByName('name')[0];
+    const eventLocation = document.getElementsByName('location')[0];
+    const eventImgPath = document.getElementsByName('image')[0];
 
     createNewEvent(eventFormContainer, eventName, eventImgPath, eventLocation);
-
   });
 }
 

@@ -103,9 +103,9 @@ function getEvents() {
 function createNewEvent(containerToHide, name, imagePath, location) {
   let formData = {
     event: {
-      name: name,
-      image_url: imagePath,
-      location: location,
+      name: name.value,
+      image_url: imagePath.value,
+      location: location.value,
       user_id: window.sessionStorage.currentUserId,
       attendees: 0
     }
@@ -131,6 +131,9 @@ function createNewEvent(containerToHide, name, imagePath, location) {
       newEvent.renderEventCard();
       containerToHide.style.display = 'none';
       addEvent = !addEvent;
+      name.value = '';
+      imagePath.value = '';
+      location.value = '';
     }
   })
   .catch(err => alert(err));
