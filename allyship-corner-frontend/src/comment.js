@@ -10,13 +10,17 @@ class Comment {
   renderComment(myDiv) {
     let comment = document.createElement('li');
     comment.innerHTML = `${this.username} says: ${this.content}`;
-    let deleteButton = document.createElement('button');
-    deleteButton.innerText = "X";
-    deleteButton.addEventListener('click', () => {
-      removeComment(this.id);
-      comment.remove();
-    });
-    comment.appendChild(deleteButton);
+
+    if (this.username === window.sessionStorage.currentUsername) {
+      let deleteButton = document.createElement('button');
+      deleteButton.innerText = "X";
+      deleteButton.addEventListener('click', () => {
+        removeComment(this.id);
+        comment.remove();
+      });
+      comment.appendChild(deleteButton);
+    }
+
     myDiv.appendChild(comment);
   }
 
