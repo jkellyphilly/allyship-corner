@@ -61,31 +61,38 @@ function showAddEvent() {
 
 function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
   let form = document.createElement('form');
-  let title = document.createElement('p');
+  let title = document.createElement('h1');
   title.innerHTML = isSignUp ? "Sign up!" : "Log in!";
 
-  let username = document.createElement('li');
+  let username = document.createElement('div');
+  username.className = "form-group";
   let usernameLabel = document.createElement('label');
+  usernameLabel.htmlfor = "username";
   usernameLabel.innerHTML = "Username: ";
   let usernameInput = document.createElement('input');
   usernameInput.setAttribute("type", "text");
+  usernameInput.setAttribute("id", "username");
+  usernameInput.className = "form-control";
 
   username.appendChild(usernameLabel);
   username.appendChild(usernameInput);
 
-  let password = document.createElement('li');
-
+  let password = document.createElement('div');
+  password.className = "form-group";
   let passwordLabel = document.createElement('label');
+  passwordLabel.htmlfor = "password";
   passwordLabel.innerHTML = "Password: ";
-
   let passwordInput = document.createElement('input');
+  passwordInput.setAttribute("id", "password");
   passwordInput.setAttribute("type", "password");
+  passwordInput.className = "form-control";
 
   password.appendChild(passwordLabel);
   password.appendChild(passwordInput);
 
   let submitUser = document.createElement('button');
-  submitUser.innerHTML = ">";
+  submitUser.className = "btn btn-primary";
+  submitUser.innerHTML = "Submit";
   submitUser.addEventListener('click', (event) => {
     event.preventDefault();
     logInOrSignUp(divToRemove, usernameInput, passwordInput, isSignUp)
