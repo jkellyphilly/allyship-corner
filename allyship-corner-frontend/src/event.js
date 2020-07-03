@@ -94,6 +94,7 @@ function getEvents() {
       thisEvent.renderEventCard();
     });
   })
+  .catch(err => alert(err));
 }
 
 function createNewEvent(name, imagePath, location, attendees=0) {
@@ -124,6 +125,7 @@ function createNewEvent(name, imagePath, location, attendees=0) {
     const newEvent = new Event(event.data.id, event.data.attributes);
     newEvent.renderEventCard();
   })
+  .catch(err => alert(err));
 }
 
 // TODO: this needs to be updated to include comments
@@ -149,6 +151,7 @@ function updateEvent(eventId, name, imagePath, location, attendees) {
   .then(function(response) {
     console.log(response)
   })
+  .catch(err => alert(err));
 }
 
 // TODO: change function type to be formatted better
@@ -164,6 +167,7 @@ function removeEvent(eventId) {
   .then(function(response) {
     alert("Deletion successful - event removed");
   })
+  .catch(err => alert(err));
 }
 
 // Function for rendering the delete button for an event

@@ -4,8 +4,6 @@ const COMMENTS_URL = `${BASE_URL}/comments`;
 const USERS_URL = `${BASE_URL}/users`;
 let main = document.getElementsByTagName('main')[0];
 let addEvent = false;
-let currentUsername;
-let currentUserId;
 
 document.addEventListener('DOMContentLoaded', () => {
 
