@@ -72,9 +72,8 @@ function createComment(myDiv, content, eventId) {
   fetch(COMMENTS_URL, configObj)
   .then(resp => resp.json())
   .then(comment => {
-    console.log(comment);
-    // const newComment = new Comment(comment.id, comment);
-    // newComment.renderComment(myDiv);
+    const newComment = new Comment(comment.data.id, comment.data.attributes);
+    newComment.renderComment(myDiv);
   })
 }
 
