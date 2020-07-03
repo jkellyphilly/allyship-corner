@@ -1,3 +1,25 @@
+class User {
+  constructor(id, userAttributes) {
+    this.id = id;
+    this.username = userAttributes.username;
+
+    User.all.push(this);
+  }
+}
+
+User.all = [];
+
+function getAllUsers() {
+  fetch(USERS_URL)
+  .then(resp => resp.json())
+  .then(response => {
+    // console.log("Response returned for users", response);
+    response.data.forEach(user => {
+      const thisUser = new User(user.id, user.attributes)
+    });
+  })
+}
+
 function logInOrSignUp(divToRemove, username, password, isSignUp) {
 
   let formData = {
