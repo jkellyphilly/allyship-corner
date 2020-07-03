@@ -100,7 +100,7 @@ function getEvents() {
   .catch(err => alert(err));
 }
 
-function createNewEvent(containerToHide, name, imagePath, location) {
+function createNewEvent(name, imagePath, location) {
   let formData = {
     event: {
       name: name.value,
@@ -129,7 +129,7 @@ function createNewEvent(containerToHide, name, imagePath, location) {
     } else {
       const newEvent = new Event(response.data.id, response.data.attributes);
       newEvent.renderEventCard();
-      containerToHide.style.display = 'none';
+      eventFormContainer.style.display = 'none';
       addEvent = !addEvent;
       name.value = '';
       imagePath.value = '';

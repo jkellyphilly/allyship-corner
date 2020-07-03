@@ -79,6 +79,7 @@ function createComment(myDiv, content, eventId) {
     const newComment = new Comment(comment.data.id, comment.data.attributes);
     newComment.renderComment(myDiv);
   })
+  .catch(err => alert(err));
 }
 
 // TODO: change function type to be formatted better
@@ -92,7 +93,7 @@ function removeComment(commentId) {
 
   fetch(`${COMMENTS_URL}/${commentId}`, configObj)
   .then(function(response) {
-    console.log(response);
-    alert("Comment deleted successfully");
+    alert("Deletion successful - comment removed");
   })
+  .catch(err => alert(err));
 }

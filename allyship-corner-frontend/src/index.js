@@ -4,6 +4,8 @@ const COMMENTS_URL = `${BASE_URL}/comments`;
 const USERS_URL = `${BASE_URL}/users`;
 let main = document.getElementsByTagName('main')[0];
 let addEvent = false;
+const addBtn = document.querySelector("#new-event-btn");
+const eventFormContainer = document.querySelector(".new-event-container");
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -36,8 +38,6 @@ function loadPageWithValidUser() {
 
 function showAddEvent() {
   // Show/hide the new event form
-  const addBtn = document.querySelector("#new-event-btn");
-  const eventFormContainer = document.querySelector(".new-event-container");
   addBtn.addEventListener("click", () => {
     addEvent = !addEvent;
     if (addEvent) {
@@ -55,7 +55,7 @@ function showAddEvent() {
     const eventLocation = document.getElementsByName('location')[0];
     const eventImgPath = document.getElementsByName('image')[0];
 
-    createNewEvent(eventFormContainer, eventName, eventImgPath, eventLocation);
+    createNewEvent(eventName, eventImgPath, eventLocation);
   });
 }
 
