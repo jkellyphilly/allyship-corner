@@ -5,6 +5,7 @@ const USERS_URL = `${BASE_URL}/users`;
 let main = document.getElementsByTagName('main')[0];
 let addEvent = false;
 const addBtn = document.querySelector("#new-event-btn");
+const addNewEventsDiv = document.querySelector("#add-events-div");
 const eventFormContainer = document.querySelector(".new-event-container");
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,6 +39,7 @@ function loadPageWithValidUser() {
 
 function showAddEvent() {
   // Show/hide the new event form
+  addNewEventsDiv.style.display = "grid";
   addBtn.addEventListener("click", () => {
     addEvent = !addEvent;
     if (addEvent) {

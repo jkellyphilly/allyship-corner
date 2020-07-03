@@ -15,31 +15,51 @@ class Event {
   }
 
   renderEventCard() {
-    const main = document.getElementsByTagName('main')[0];
     let thisDiv = document.createElement('div');
-    thisDiv.className = "card";
+    thisDiv.className = "card mb-3";
+    thisDiv.style.maxWidth = "540px";
     thisDiv.setAttribute('data-id', this.id);
 
-    let thisName = document.createElement('p');
-    thisName.innerHTML = this.name;
-    thisDiv.appendChild(thisName);
+    let row = document.createElement('div');
+    row.className = "row no-gutters";
 
+    // Image div
+    let imgDiv = document.createElement('div');
+    imgDiv.className = 'col-md-4';
     let thisImage = document.createElement('img');
     thisImage.src = this.imagePath;
-    thisDiv.appendChild(thisImage);
+    thisImage.className = "card-img";
+    imgDiv.appendChild(thisImage);
 
+    // Content div
+    let contentDiv = document.createElement('div');
+    contentDiv.className = "col-md-8";
+    let cardBody = document.createElement('div');
+    cardBody.className = "card-body";
+
+    // Title
+    let thisName = document.createElement('h5');
+    thisName.className = "card-title";
+    thisName.innerHTML = this.name;
+    cardBody.appendChild(thisName);
+
+    // Location
     let thisLocation = document.createElement('p');
+    thisLocation.className = "card-text";
     thisLocation.innerHTML = this.location;
-    thisDiv.appendChild(thisLocation);
+    cardBody.appendChild(thisLocation);
 
+    // Number of attendees
     let numAttendees = document.createElement('p');
+    numAttendees.className = "card-text";
     numAttendees.innerHTML = `${this.attendees} are attending`;
-    thisDiv.appendChild(numAttendees);
+    cardBody.appendChild(numAttendees);
 
-    if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
-      renderDeleteButton(thisDiv, this.id);
-    }
-
+    // Attend button
+    let interestedSection = document.createElement('p');
+    interestedSection.className = "card-text";
+    let smallClass = document.createElement('small');
+    smallClass.className = "text-muted";
     let attendBtn = document.createElement('button');
     attendBtn.innerText = "I'm interested";
     attendBtn.addEventListener('click', () => {
@@ -55,7 +75,19 @@ class Event {
       // TODO: do I really need to pass all of that information in??
       updateEvent(this.id, this.name, this.imagePath, this.location, this.attendees);
     });
-    thisDiv.appendChild(attendBtn);
+    smallClass.appendChild(attendBtn);
+    interestedSection.appendChild(smallClass);
+    cardBody.appendChild(interestedSection);
+
+    row.appendChild(imgDiv);
+    contentDiv.appendChild(cardBody);
+    row.appendChild(contentDiv);
+    thisDiv.appendChild(row);
+
+
+    if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
+      renderDeleteButton(smallClass, this.id);
+    }
 
     // COMMENTS SECTION
     // TODO: add a special class name for the comments div
@@ -71,9 +103,7 @@ class Event {
     });
     thisDiv.appendChild(commentsDiv);
     Comment.renderNewCommentForm(thisDiv, commentsDiv);
-
     main.appendChild(thisDiv);
-
   }
 
   static findById(id) {
