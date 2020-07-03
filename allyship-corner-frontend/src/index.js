@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let logInSection = document.createElement('div');
 
   // Create sign up form
-  // createSignUpOForm(newUserSection, welcomeUsers);
   createSignUpOrLogInForm(newUserSection, welcomeUsers, true);
   // Create log in form
   createSignUpOrLogInForm(logInSection, welcomeUsers, false);

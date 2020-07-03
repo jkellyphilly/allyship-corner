@@ -24,6 +24,10 @@ class Event {
     thisName.innerHTML = this.name;
     thisDiv.appendChild(thisName);
 
+    let thisImage = document.createElement('img');
+    thisImage.src = this.imagePath;
+    thisDiv.appendChild(thisImage);
+
     let thisLocation = document.createElement('p');
     thisLocation.innerHTML = this.location;
     thisDiv.appendChild(thisLocation);
