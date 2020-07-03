@@ -9,6 +9,9 @@ let currentUserId;
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // In the background, fetch all users
+  getAllUsers();
+
   let welcomeUsers = document.createElement('div');
   let newUserSection = document.createElement('div');
   let logInSection = document.createElement('div');

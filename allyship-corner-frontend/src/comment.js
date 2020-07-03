@@ -2,8 +2,8 @@ class Comment {
   constructor(id, commentAttributes) {
     this.id = id;
     this.content = commentAttributes.content;
-    this.eventId = commentAttributes.event_id;
-    this.username = commentAttributes.username;
+    this.eventId = commentAttributes.event.id;
+    this.username = commentAttributes.user.username;
     Comment.all.push(this);
   }
 
@@ -51,17 +51,18 @@ class Comment {
 
 Comment.all = [];
 
-function createComment(myDiv, content, eventId, username="Anonymous") {
+function createComment(myDiv, content, eventId) {
 
   let formData = {
     content: content,
     event_id: eventId,
-    username: username
+    user_id: window.sessionStorage.currentUserId
   }
 
   let configObj = {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${window.sessionStorage.accessToken}`,
       "Content-Type": "application/json",
       Accept: "application/json"
     },
@@ -71,8 +72,9 @@ function createComment(myDiv, content, eventId, username="Anonymous") {
   fetch(COMMENTS_URL, configObj)
   .then(resp => resp.json())
   .then(comment => {
-    const newComment = new Comment(comment.id, comment);
-    newComment.renderComment(myDiv);
+    console.log(comment);
+    // const newComment = new Comment(comment.id, comment);
+    // newComment.renderComment(myDiv);
   })
 }
 

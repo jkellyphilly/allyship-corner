@@ -48,17 +48,23 @@ class Event {
       }
       this.liked = !this.liked;
       numAttendees.innerHTML = `${this.attendees} are attending`;
+      // TODO: do I really need to pass all of that information in??
       updateEvent(this.id, this.name, this.imagePath, this.location, this.attendees);
     });
     thisDiv.appendChild(attendBtn);
 
-    // Comments
+    // COMMENTS SECTION
     // TODO: add a special class name for the comments div
     let commentsDiv = document.createElement('div');
-    // console.log(this.comments);
     this.comments.map(comment => {
-      const thisComment = new Comment(comment.id, comment);
-      thisComment.renderComment(commentsDiv);
+      console.log(comment);
+      // commentAttributes = {
+      //   content: comment.content,
+      //   event: { id: comment.event_id },
+      //   user: { username: User.getUsernameFromId(comment.user_id)}
+      // }
+      // const thisComment = new Comment(comment.id, {content: comment.content);
+      // thisComment.renderComment(commentsDiv);
     });
     thisDiv.appendChild(commentsDiv);
     Comment.renderNewCommentForm(thisDiv, commentsDiv);
@@ -84,6 +90,7 @@ function getEvents() {
   .then(resp => resp.json())
   .then(response => {
     response.data.forEach(event => {
+      // console.log(event);
       const thisEvent = new Event(event.id, event.attributes);
       thisEvent.renderEventCard();
     });
@@ -114,6 +121,7 @@ function createNewEvent(name, imagePath, location, attendees=0) {
   fetch(EVENTS_URL, configObj)
   .then(resp => resp.json())
   .then(event => {
+    // console.log(event);
     const newEvent = new Event(event.data.id, event.data.attributes);
     newEvent.renderEventCard();
   })
