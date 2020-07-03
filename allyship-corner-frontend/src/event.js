@@ -93,7 +93,6 @@ function getEvents() {
   .then(resp => resp.json())
   .then(response => {
     response.data.forEach(event => {
-      // console.log(event);
       const thisEvent = new Event(event.id, event.attributes);
       thisEvent.renderEventCard();
     });
@@ -101,14 +100,14 @@ function getEvents() {
   .catch(err => alert(err));
 }
 
-function createNewEvent(name, imagePath, location, attendees=0) {
+function createNewEvent(containerToHide, name, imagePath, location) {
   let formData = {
     event: {
       name: name,
       image_url: imagePath,
       location: location,
       user_id: window.sessionStorage.currentUserId,
-      attendees: attendees
+      attendees: 0
     }
   }
 
@@ -124,10 +123,15 @@ function createNewEvent(name, imagePath, location, attendees=0) {
 
   fetch(EVENTS_URL, configObj)
   .then(resp => resp.json())
-  .then(event => {
-    // console.log(event);
-    const newEvent = new Event(event.data.id, event.data.attributes);
-    newEvent.renderEventCard();
+  .then(response => {
+    if (response.message) {
+      alert(response.message);
+    } else {
+      const newEvent = new Event(response.data.id, response.data.attributes);
+      newEvent.renderEventCard();
+      containerToHide.style.display = 'none';
+      addEvent = !addEvent;
+    }
   })
   .catch(err => alert(err));
 }

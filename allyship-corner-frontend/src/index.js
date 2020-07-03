@@ -55,10 +55,8 @@ function showAddEvent() {
     const eventLocation = document.getElementsByName('location')[0].value;
     const eventImgPath = document.getElementsByName('image')[0].value;
 
-    createNewEvent(eventName, eventImgPath, eventLocation);
+    createNewEvent(eventFormContainer, eventName, eventImgPath, eventLocation);
 
-    addEvent = !addEvent;
-    eventFormContainer.style.display = "none";
   });
 }
 
