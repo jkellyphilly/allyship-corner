@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let logInSection = document.createElement('div');
 
   // Create sign up form
-  createSignUpForm(newUserSection, welcomeUsers);
+  // createSignUpOForm(newUserSection, welcomeUsers);
+  createSignUpOrLogInForm(newUserSection, welcomeUsers, true);
   // Create log in form
-  createLogInForm(logInSection, welcomeUsers);
+  createSignUpOrLogInForm(logInSection, welcomeUsers, false);
 
   welcomeUsers.appendChild(newUserSection);
   welcomeUsers.appendChild(logInSection);
@@ -62,50 +63,10 @@ function showAddEvent() {
   });
 }
 
-function createSignUpForm(parent, divToRemove) {
-  let newUser = document.createElement('form');
-  let title = document.createElement('p');
-  title.innerHTML = "Sign up!";
-
-  let username = document.createElement('li');
-  let usernameLabel = document.createElement('label');
-  usernameLabel.innerHTML = "Username: ";
-  let usernameInput = document.createElement('input');
-  usernameInput.setAttribute("type", "text");
-
-  username.appendChild(usernameLabel);
-  username.appendChild(usernameInput);
-
-  let password = document.createElement('li');
-
-  let passwordLabel = document.createElement('label');
-  passwordLabel.innerHTML = "Password: ";
-
-  let passwordInput = document.createElement('input');
-  passwordInput.setAttribute("type", "password");
-
-  password.appendChild(passwordLabel);
-  password.appendChild(passwordInput);
-
-  let submitUser = document.createElement('button');
-  submitUser.innerHTML = ">";
-  submitUser.addEventListener('click', (event) => {
-    event.preventDefault();
-    // createNewUser(divToRemove, usernameInput.value, passwordInput.value);
-    logInOrSignUp(divToRemove, usernameInput.value, passwordInput.value, true);
-  })
-
-  newUser.appendChild(title);
-  newUser.appendChild(username);
-  newUser.appendChild(password);
-  newUser.appendChild(submitUser);
-  parent.appendChild(newUser);
-}
-
-function createLogInForm(parent, divToRemove) {
+function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
   let form = document.createElement('form');
   let title = document.createElement('p');
-  title.innerHTML = "Log in!";
+  title.innerHTML = isSignUp ? "Sign up!" : "Log in!";
 
   let username = document.createElement('li');
   let usernameLabel = document.createElement('label');
@@ -131,7 +92,7 @@ function createLogInForm(parent, divToRemove) {
   submitUser.innerHTML = ">";
   submitUser.addEventListener('click', (event) => {
     event.preventDefault();
-    logInOrSignUp(divToRemove, usernameInput.value, passwordInput.value, false)
+    logInOrSignUp(divToRemove, usernameInput.value, passwordInput.value, isSignUp)
   })
 
   form.appendChild(title);
