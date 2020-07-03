@@ -75,9 +75,13 @@ function createComment(myDiv, content, eventId) {
 
   fetch(COMMENTS_URL, configObj)
   .then(resp => resp.json())
-  .then(comment => {
-    const newComment = new Comment(comment.data.id, comment.data.attributes);
-    newComment.renderComment(myDiv);
+  .then(response => {
+    if (response.message) {
+      alert(response.message);
+    } else {
+      const newComment = new Comment(response.data.id, response.data.attributes);
+      newComment.renderComment(myDiv);
+    }
   })
   .catch(err => alert(err));
 }
