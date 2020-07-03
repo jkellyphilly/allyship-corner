@@ -5,6 +5,11 @@ class User {
 
     User.all.push(this);
   }
+
+  static getUsernameFromId(id) {
+    const thisUser = this.all.find(user => parseInt(user.id) === id);
+    return thisUser.username;
+  }
 }
 
 User.all = [];
@@ -13,7 +18,6 @@ function getAllUsers() {
   fetch(USERS_URL)
   .then(resp => resp.json())
   .then(response => {
-    // console.log("Response returned for users", response);
     response.data.forEach(user => {
       const thisUser = new User(user.id, user.attributes)
     });

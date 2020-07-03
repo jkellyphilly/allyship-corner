@@ -57,14 +57,13 @@ class Event {
     // TODO: add a special class name for the comments div
     let commentsDiv = document.createElement('div');
     this.comments.map(comment => {
-      console.log(comment);
-      // commentAttributes = {
-      //   content: comment.content,
-      //   event: { id: comment.event_id },
-      //   user: { username: User.getUsernameFromId(comment.user_id)}
-      // }
-      // const thisComment = new Comment(comment.id, {content: comment.content);
-      // thisComment.renderComment(commentsDiv);
+      const commentAttributes = {
+        content: comment.content,
+        event: { id: comment.event_id },
+        user: { username: User.getUsernameFromId(comment.user_id)}
+      }
+      const thisComment = new Comment(comment.id, commentAttributes);
+      thisComment.renderComment(commentsDiv);
     });
     thisDiv.appendChild(commentsDiv);
     Comment.renderNewCommentForm(thisDiv, commentsDiv);
