@@ -15,6 +15,9 @@ class Event {
   }
 
   renderEventCard() {
+    let thisEventDiv = document.createElement('div');
+    thisEventDiv.className = "col";
+
     let thisDiv = document.createElement('div');
     thisDiv.className = "card mb-3";
     thisDiv.style.maxWidth = "540px";
@@ -84,7 +87,6 @@ class Event {
     row.appendChild(contentDiv);
     thisDiv.appendChild(row);
 
-
     if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
       renderDeleteButton(smallClass, this.id);
     }
@@ -103,7 +105,8 @@ class Event {
     });
     thisDiv.appendChild(commentsDiv);
     Comment.renderNewCommentForm(thisDiv, commentsDiv);
-    main.appendChild(thisDiv);
+    thisEventDiv.appendChild(thisDiv);
+    eventCards.appendChild(thisEventDiv);
   }
 
   static findById(id) {

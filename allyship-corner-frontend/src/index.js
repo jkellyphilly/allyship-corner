@@ -7,6 +7,7 @@ let addEvent = false;
 const addBtn = document.querySelector("#new-event-btn");
 const addNewEventsDiv = document.querySelector("#add-events-div");
 const eventFormContainer = document.querySelector(".new-event-container");
+const eventCards = document.querySelector('#event-cards');
 
 document.addEventListener('DOMContentLoaded', () => {
 
