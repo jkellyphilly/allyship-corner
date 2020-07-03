@@ -80,7 +80,10 @@ function createComment(myDiv, content, eventId) {
 // TODO: change function type to be formatted better
 function removeComment(commentId) {
   const configObj = {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${window.sessionStorage.accessToken}`
+    }
   }
 
   fetch(`${COMMENTS_URL}/${commentId}`, configObj)
