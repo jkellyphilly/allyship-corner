@@ -28,8 +28,8 @@ function logInOrSignUp(divToRemove, username, password, isSignUp) {
 
   let formData = {
     user: {
-      username: username,
-      password: password
+      username: username.value,
+      password: password.value
     }
   }
 
@@ -49,6 +49,8 @@ function logInOrSignUp(divToRemove, username, password, isSignUp) {
   .then(resp => resp.json())
   .then(response => {
     if (response.message) {
+      username.value = '';
+      password.value = '';
       alert(response.message);
     } else {
       window.sessionStorage.accessToken = response.jwt;

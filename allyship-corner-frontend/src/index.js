@@ -92,7 +92,7 @@ function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
   submitUser.innerHTML = ">";
   submitUser.addEventListener('click', (event) => {
     event.preventDefault();
-    logInOrSignUp(divToRemove, usernameInput.value, passwordInput.value, isSignUp)
+    logInOrSignUp(divToRemove, usernameInput, passwordInput, isSignUp)
   })
 
   form.appendChild(title);
