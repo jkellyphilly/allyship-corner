@@ -55,7 +55,7 @@ class Event {
     // Number of attendees
     let numAttendees = document.createElement('p');
     numAttendees.className = "card-text";
-    numAttendees.innerHTML = `${this.attendees} are attending`;
+    numAttendees.innerHTML = `${this.attendees} attending`;
     cardBody.appendChild(numAttendees);
 
     // Attend button
@@ -64,17 +64,20 @@ class Event {
     let smallClass = document.createElement('small');
     smallClass.className = "text-muted";
     let attendBtn = document.createElement('button');
+    attendBtn.className = "btn btn-success";
     attendBtn.innerText = "I'm interested";
     attendBtn.addEventListener('click', () => {
       if (this.liked) {
         this.attendees -= 1;
         attendBtn.innerText = "I'm interested";
+        attendBtn.className = "btn btn-success";
       } else {
         this.attendees += 1;
         attendBtn.innerText = "I can no longer attend";
+        attendBtn.className = "btn btn-danger";
       }
       this.liked = !this.liked;
-      numAttendees.innerHTML = `${this.attendees} are attending`;
+      numAttendees.innerHTML = `${this.attendees} attending`;
       // TODO: do I really need to pass all of that information in??
       updateEvent(this.id, this.name, this.imagePath, this.location, this.attendees);
     });
