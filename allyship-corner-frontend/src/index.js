@@ -64,11 +64,13 @@ function showAddEvent() {
 
 function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
   let form = document.createElement('form');
+  form.style.maxWidth = "540px";
   let title = document.createElement('h1');
   title.innerHTML = isSignUp ? "Sign up!" : "Log in!";
 
   let username = document.createElement('div');
   username.className = "form-group";
+  // username.style.maxWidth = "540px";
   let usernameLabel = document.createElement('label');
   usernameLabel.htmlfor = "username";
   usernameLabel.innerHTML = "Username: ";
@@ -105,5 +107,6 @@ function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
   form.appendChild(username);
   form.appendChild(password);
   form.appendChild(submitUser);
+  parent.setAttribute('align', 'center');
   parent.appendChild(form);
 }
