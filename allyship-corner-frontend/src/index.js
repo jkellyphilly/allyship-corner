@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // In the background, fetch all users
   getAllUsers();
 
+  let welcomeUsersSection = document.createElement('container');
   let welcomeUsers = document.createElement('div');
+  welcomeUsers.className = "row row-cols-2";
   let newUserSection = document.createElement('div');
   let logInSection = document.createElement('div');
 
@@ -97,7 +99,7 @@ function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
 
   let submitUser = document.createElement('button');
   submitUser.className = "btn btn-primary";
-  submitUser.innerHTML = "Submit";
+  submitUser.innerHTML = isSignUp ? "Sign up" : "Log in";
   submitUser.addEventListener('click', (event) => {
     event.preventDefault();
     logInOrSignUp(divToRemove, usernameInput, passwordInput, isSignUp)
@@ -108,5 +110,6 @@ function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
   form.appendChild(password);
   form.appendChild(submitUser);
   parent.setAttribute('align', 'center');
+  parent.className = "col";
   parent.appendChild(form);
 }
