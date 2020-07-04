@@ -25,6 +25,7 @@ class Event {
 
     let row = document.createElement('div');
     row.className = "row no-gutters";
+    row.style.backgroundColor = '#F8F8F8';
 
     // Image div
     let imgDiv = document.createElement('div');
