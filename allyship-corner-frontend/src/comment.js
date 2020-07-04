@@ -10,6 +10,7 @@ class Comment {
 
   renderComment(myDiv) {
     let a = document.createElement('a');
+    a.style.backgroundColor = '#F8F8F8';
     a.className = "list-group-item";
     let comment = document.createElement('div');
     comment.className = "d-flex w-100 justify-content-between";
@@ -24,7 +25,7 @@ class Comment {
       deleteButton.innerText = "Delete";
       deleteButton.addEventListener('click', () => {
         removeComment(this.id);
-        comment.remove();
+        a.remove();
       });
       comment.appendChild(deleteButton);
     }
