@@ -223,6 +223,7 @@ function removeEvent(eventId) {
 function renderDeleteButton(divToRemove, parent, eventId) {
   let deleteButton = document.createElement('button');
   deleteButton.innerText = "Delete Event";
+  deleteButton.className = "btn btn-outline-danger";
   deleteButton.addEventListener('click', () => {
     removeEvent(eventId);
     divToRemove.remove();
