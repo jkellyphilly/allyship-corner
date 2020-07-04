@@ -46,13 +46,9 @@ function showAddEvent() {
   addBtn.addEventListener("click", () => {
     addEvent = !addEvent;
     if (addEvent) {
-      eventFormContainer.style.display = "block";
-      addBtn.innerText = "Close";
-      addBtn.className = "btn btn-link";
+      openAddEventSection();
     } else {
-      eventFormContainer.style.display = "none";
-      addBtn.innerText = "Make a difference in this world. Add a new event!";
-      addBtn.className = "btn btn-info";
+      resetAddEventSection();
     }
   });
 
@@ -116,4 +112,16 @@ function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
   parent.setAttribute('align', 'center');
   parent.className = "col";
   parent.appendChild(form);
+}
+
+function resetAddEventSection() {
+  eventFormContainer.style.display = "none";
+  addBtn.innerText = "Make a difference in this world. Add a new event!";
+  addBtn.className = "btn btn-info";
+}
+
+function openAddEventSection() {
+  eventFormContainer.style.display = "block";
+  addBtn.innerText = "Close";
+  addBtn.className = "btn btn-link";
 }
