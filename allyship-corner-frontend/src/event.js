@@ -96,13 +96,14 @@ class Event {
     }
 
     // COMMENTS SECTION
-    // TODO: add a special class name for the comments div
     let commentsDiv = document.createElement('div');
+    commentsDiv.className = "list-group";
     this.comments.map(comment => {
       const commentAttributes = {
         content: comment.content,
         event: { id: comment.event_id },
-        user: { username: User.getUsernameFromId(comment.user_id)}
+        user: { username: User.getUsernameFromId(comment.user_id)},
+        updated_at: comment.updated_at
       }
       const thisComment = new Comment(comment.id, commentAttributes);
       thisComment.renderComment(commentsDiv);

@@ -4,16 +4,24 @@ class Comment {
     this.content = commentAttributes.content;
     this.eventId = commentAttributes.event.id;
     this.username = commentAttributes.user.username;
+    this.lastUpdated = commentAttributes.updated_at;
     Comment.all.push(this);
   }
 
   renderComment(myDiv) {
-    let comment = document.createElement('li');
-    comment.innerHTML = `${this.username} says: ${this.content}`;
+    let a = document.createElement('a');
+    a.className = "list-group-item";
+    let comment = document.createElement('div');
+    comment.className = "d-flex w-100 justify-content-between";
+    let text = document.createElement('h5');
+    text.className = "mb-1";
+    text.innerHTML = `${this.username}`;
+    comment.appendChild(text);
 
     if (this.username === window.sessionStorage.currentUsername) {
       let deleteButton = document.createElement('button');
-      deleteButton.innerText = "X";
+      deleteButton.className = "btn btn-link btn-sm";
+      deleteButton.innerText = "Delete";
       deleteButton.addEventListener('click', () => {
         removeComment(this.id);
         comment.remove();
@@ -21,7 +29,19 @@ class Comment {
       comment.appendChild(deleteButton);
     }
 
-    myDiv.appendChild(comment);
+    let content = document.createElement('p');
+    content.className = "mb-1";
+    content.innerHTML = `${this.content}`;
+
+    let timeStamp = document.createElement('small');
+    timeStamp.innerHTML = `${this.lastUpdated}`;
+
+    // This is where I can add the "time the comment was left"
+    a.appendChild(comment);
+    a.appendChild(content);
+    a.appendChild(timeStamp);
+
+    myDiv.appendChild(a);
   }
 
   static renderNewCommentForm(myDiv, commentDiv) {
