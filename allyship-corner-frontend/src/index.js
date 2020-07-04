@@ -47,8 +47,12 @@ function showAddEvent() {
     addEvent = !addEvent;
     if (addEvent) {
       eventFormContainer.style.display = "block";
+      addBtn.innerText = "Close";
+      addBtn.className = "btn btn-link";
     } else {
       eventFormContainer.style.display = "none";
+      addBtn.innerText = "Make a difference in this world. Add a new event!";
+      addBtn.className = "btn btn-info";
     }
   });
 
