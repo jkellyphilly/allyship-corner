@@ -92,7 +92,7 @@ class Event {
     thisDiv.appendChild(row);
 
     if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
-      renderDeleteButton(smallClass, this.id);
+      renderDeleteButton(thisEventDiv, smallClass, this.id);
     }
 
     // COMMENTS SECTION
@@ -220,12 +220,12 @@ function removeEvent(eventId) {
 }
 
 // Function for rendering the delete button for an event
-function renderDeleteButton(parent, eventId) {
+function renderDeleteButton(divToRemove, parent, eventId) {
   let deleteButton = document.createElement('button');
   deleteButton.innerText = "Delete Event";
   deleteButton.addEventListener('click', () => {
     removeEvent(eventId);
-    parent.remove();
+    divToRemove.remove();
   })
   parent.appendChild(deleteButton);
 }
