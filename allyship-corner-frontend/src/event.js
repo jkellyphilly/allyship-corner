@@ -167,11 +167,11 @@ function createNewEvent(name, imagePath, location) {
     } else {
       const newEvent = new Event(response.data.id, response.data.attributes);
       newEvent.renderEventCard();
-      eventFormContainer.style.display = 'none';
       addEvent = !addEvent;
       name.value = '';
       imagePath.value = '';
       location.value = '';
+      resetAddEventSection();
     }
   })
   .catch(err => alert(err));
