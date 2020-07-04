@@ -45,28 +45,40 @@ class Comment {
     myDiv.appendChild(a);
   }
 
+  // Render the new comment form beneath current comments
   static renderNewCommentForm(myDiv, commentDiv) {
-    let newComment = document.createElement('form');
+    let newCommentForm = document.createElement('form');
+    newCommentForm.className = "form-inline";
+
+    let commentInput = document.createElement('div');
+    commentInput.className = "form-group mx-sm-3 mb-2";
 
     let commentLabel = document.createElement('label');
-    commentLabel.innerHTML = "New comment: ";
+    commentLabel.className = "sr-only";
+    commentLabel.htmlFor = "commentContent";
+    commentLabel.innerHTML = "New comment";
 
     let commentContent = document.createElement('input');
     commentContent.setAttribute("type", "text");
+    commentContent.setAttribute("id", "commentContent");
+    commentContent.className = "form-control";
+
+    commentInput.appendChild(commentLabel);
+    commentInput.appendChild(commentContent);
 
     let submitComment = document.createElement('button');
-    submitComment.innerHTML = ">";
+    submitComment.setAttribute('type', 'submit');
+    submitComment.className = "btn btn-outline-primary mb-2";
+    submitComment.innerHTML = "Post comment";
     submitComment.addEventListener('click', (event) => {
       event.preventDefault();
       createComment(commentDiv, commentContent.value, myDiv.getAttribute('data-id'));
       commentContent.value = "";
     })
 
-    newComment.appendChild(commentLabel);
-    newComment.appendChild(commentContent);
-    newComment.appendChild(submitComment);
-
-    myDiv.appendChild(newComment);
+    newCommentForm.appendChild(commentInput);
+    newCommentForm.appendChild(submitComment);
+    myDiv.appendChild(newCommentForm);
   }
 
   static findById(id) {
