@@ -91,6 +91,7 @@ class Event {
     row.appendChild(contentDiv);
     thisDiv.appendChild(row);
 
+    // Render the delete button if the event belongs to the current user
     if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
       renderDeleteButton(thisEventDiv, smallClass, this.id);
     }
@@ -121,6 +122,7 @@ class Event {
 
 Event.all = [];
 
+// Data retrieval of all events
 function getEvents() {
   fetch(EVENTS_URL, {
     method: 'GET',
@@ -138,7 +140,12 @@ function getEvents() {
   .catch(err => alert(err));
 }
 
+// Create a new event given the event's name, image URL, and location
 function createNewEvent(name, imagePath, location) {
+
+  // Note: the user_id attribute is taken from the sessionStorage, which is
+  // where we've stored the current user's ID (currentUserId). Additionally,
+  // a new event will initialize with 0 attendees
   let formData = {
     event: {
       name: name.value,
@@ -167,6 +174,7 @@ function createNewEvent(name, imagePath, location) {
     } else {
       const newEvent = new Event(response.data.id, response.data.attributes);
       newEvent.renderEventCard();
+
       addEvent = !addEvent;
       name.value = '';
       imagePath.value = '';
@@ -203,7 +211,7 @@ function updateEvent(eventId, name, imagePath, location, attendees) {
   .catch(err => alert(err));
 }
 
-// TODO: change function type to be formatted better
+// Remove an event from the database and then from the DOM
 function removeEvent(eventId) {
   const configObj = {
     method: 'DELETE',
@@ -219,7 +227,7 @@ function removeEvent(eventId) {
   .catch(err => alert(err));
 }
 
-// Function for rendering the delete button for an event
+// Render the delete button for an event
 function renderDeleteButton(divToRemove, parent, eventId) {
   let deleteButton = document.createElement('button');
   deleteButton.innerText = "Delete Event";

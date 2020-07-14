@@ -24,7 +24,7 @@ function getAllUsers() {
   })
 }
 
-function logInOrSignUp(divToRemove, username, password, isSignUp) {
+function logInOrSignUp(username, password, isSignUp) {
 
   let formData = {
     user: {
@@ -53,12 +53,13 @@ function logInOrSignUp(divToRemove, username, password, isSignUp) {
       password.value = '';
       alert(response.message);
     } else {
+      // Store JWT, username, and user ID in sessionStorage
       window.sessionStorage.accessToken = response.jwt;
       window.sessionStorage.currentUsername = response.user.data.attributes.username;
       window.sessionStorage.currentUserId = response.user.data.id;
       alert(`Succesfully ${myWording} - welcome!`);
 
-      divToRemove.remove();
+      welcomeUsersSection.remove();
       loadPageWithValidUser();
     }
   })
