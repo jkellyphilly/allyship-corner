@@ -79,8 +79,7 @@ class Event {
       }
       this.liked = !this.liked;
       numAttendees.innerHTML = `${this.attendees} attending`;
-      // TODO: do I really need to pass all of that information in??
-      updateEvent(this.id, this.name, this.imagePath, this.location, this.attendees);
+      updateEvent(this.id, this.attendees);
     });
     smallClass.appendChild(attendBtn);
     interestedSection.appendChild(smallClass);
@@ -142,7 +141,6 @@ function getEvents() {
 
 // Create a new event given the event's name, image URL, and location
 function createNewEvent(name, imagePath, location) {
-
   // Note: the user_id attribute is taken from the sessionStorage, which is
   // where we've stored the current user's ID (currentUserId). Additionally,
   // a new event will initialize with 0 attendees
@@ -185,15 +183,8 @@ function createNewEvent(name, imagePath, location) {
   .catch(err => alert(err));
 }
 
-// TODO: this needs to be updated to include comments
-function updateEvent(eventId, name, imagePath, location, attendees) {
-  let formData = {
-    name: name,
-    image_url: imagePath,
-    location: location,
-    attendees: attendees
-  }
-
+// Update an event's number of attendees
+function updateEvent(eventId, attendees) {
   let configObj = {
     method: "PATCH",
     headers: {
@@ -201,7 +192,7 @@ function updateEvent(eventId, name, imagePath, location, attendees) {
       "Content-Type": "application/json",
       Accept: "application/json"
     },
-    body: JSON.stringify(formData)
+    body: JSON.stringify({ attendees: attendees })
   }
 
   fetch(`${EVENTS_URL}/${eventId}`, configObj)
