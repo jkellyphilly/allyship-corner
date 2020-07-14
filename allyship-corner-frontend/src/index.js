@@ -42,8 +42,8 @@ function loadPageWithValidUser() {
   getEvents();
 }
 
+// Show/hide the new event form
 function showAddEvent() {
-  // Show/hide the new event form
   addNewEventsDiv.style.display = "grid";
   addBtn.addEventListener("click", () => {
     addEvent = !addEvent;

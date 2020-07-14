@@ -119,7 +119,6 @@ function createComment(myDiv, content, eventId) {
   .catch(err => alert(err));
 }
 
-// TODO: change function type to be formatted better
 function removeComment(commentId) {
   const configObj = {
     method: 'DELETE',

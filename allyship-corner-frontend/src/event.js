@@ -8,9 +8,7 @@ class Event {
     this.comments = eventAttributes.comments;
     this.userId = eventAttributes.user.id;
     this.userName = eventAttributes.user.username;
-
-    // TODO: add in the date of creation ?
-    this.liked = false; // TODO: change this name
+    this.attending = false;
     Event.all.push(this);
   }
 
@@ -68,7 +66,7 @@ class Event {
     attendBtn.className = "btn btn-success";
     attendBtn.innerText = "I'm interested";
     attendBtn.addEventListener('click', () => {
-      if (this.liked) {
+      if (this.attending) {
         this.attendees -= 1;
         attendBtn.innerText = "I'm interested";
         attendBtn.className = "btn btn-success";
@@ -77,7 +75,7 @@ class Event {
         attendBtn.innerText = "I can no longer attend";
         attendBtn.className = "btn btn-danger";
       }
-      this.liked = !this.liked;
+      this.attending = !this.attending;
       numAttendees.innerHTML = `${this.attendees} attending`;
       updateEvent(this.id, this.attendees);
     });
