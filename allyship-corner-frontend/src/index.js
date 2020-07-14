@@ -15,22 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // In the background, fetch all users
   getAllUsers();
 
-  let welcomeUsers = document.createElement('div');
-  welcomeUsers.className = "row row-cols-2";
   let newUserSection = document.createElement('div');
   let logInSection = document.createElement('div');
 
   // Create sign up form
-  createSignUpOrLogInForm(newUserSection, welcomeUsers, true);
+  createSignUpOrLogInForm(newUserSection, true);
   // Create log in form
-  createSignUpOrLogInForm(logInSection, welcomeUsers, false);
+  createSignUpOrLogInForm(logInSection, false);
 
-  welcomeUsers.appendChild(newUserSection);
-  welcomeUsers.appendChild(logInSection);
-
-  welcomeUsersSection.appendChild(welcomeUsers);
-  main.appendChild(welcomeUsersSection);
-
+  welcomeUsersSection.appendChild(newUserSection);
+  welcomeUsersSection.appendChild(logInSection);
 })
 
 // Called on succesful user sign up or log in
@@ -66,7 +60,7 @@ function showAddEvent() {
 }
 
 // Function for rendering a form for either signing up or logging in
-function createSignUpOrLogInForm(parent, divToRemove, isSignUp) {
+function createSignUpOrLogInForm(parent, isSignUp) {
   let form = document.createElement('form');
   form.style.maxWidth = "540px";
   let title = document.createElement('h1');
