@@ -15,16 +15,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // In the background, fetch all users
   getAllUsers();
 
-  let newUserSection = document.createElement('div');
-  let logInSection = document.createElement('div');
+  // Sign up section
+  const signUpBtn = document.querySelector('#sign-up-btn');
+  const usernameSignUp = document.querySelector('#username-signup');
+  const passwordSignUp = document.querySelector('#password-signup');
+  signUpBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    logInOrSignUp(usernameSignUp, passwordSignUp, true);
+  })
 
-  // Create sign up form
-  createSignUpOrLogInForm(newUserSection, true);
-  // Create log in form
-  createSignUpOrLogInForm(logInSection, false);
-
-  welcomeUsersSection.appendChild(newUserSection);
-  welcomeUsersSection.appendChild(logInSection);
+  // Log in section
+  const loginBtn = document.querySelector('#login-btn');
+  const usernameLogin = document.querySelector('#username-login');
+  const passwordLogin = document.querySelector('#password-login');
+  loginBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    logInOrSignUp(usernameLogin, passwordLogin, false);
+  })
 })
 
 // Called on succesful user sign up or log in
@@ -57,56 +64,6 @@ function showAddEvent() {
 
     createNewEvent(eventName, eventImgPath, eventLocation);
   });
-}
-
-// Function for rendering a form for either signing up or logging in
-function createSignUpOrLogInForm(parent, isSignUp) {
-  let form = document.createElement('form');
-  form.style.maxWidth = "540px";
-  let title = document.createElement('h1');
-  title.innerHTML = isSignUp ? "Sign up!" : "Log in!";
-
-  let username = document.createElement('div');
-  username.className = "form-group";
-  let usernameLabel = document.createElement('label');
-  usernameLabel.htmlfor = "username";
-  usernameLabel.innerHTML = "Username: ";
-  let usernameInput = document.createElement('input');
-  usernameInput.setAttribute("type", "text");
-  usernameInput.setAttribute("id", "username");
-  usernameInput.className = "form-control";
-
-  username.appendChild(usernameLabel);
-  username.appendChild(usernameInput);
-
-  let password = document.createElement('div');
-  password.className = "form-group";
-  let passwordLabel = document.createElement('label');
-  passwordLabel.htmlfor = "password";
-  passwordLabel.innerHTML = "Password: ";
-  let passwordInput = document.createElement('input');
-  passwordInput.setAttribute("id", "password");
-  passwordInput.setAttribute("type", "password");
-  passwordInput.className = "form-control";
-
-  password.appendChild(passwordLabel);
-  password.appendChild(passwordInput);
-
-  let submitUser = document.createElement('button');
-  submitUser.className = "btn btn-primary";
-  submitUser.innerHTML = isSignUp ? "Sign up" : "Log in";
-  submitUser.addEventListener('click', (event) => {
-    event.preventDefault();
-    logInOrSignUp(usernameInput, passwordInput, isSignUp)
-  })
-
-  form.appendChild(title);
-  form.appendChild(username);
-  form.appendChild(password);
-  form.appendChild(submitUser);
-  parent.setAttribute('align', 'center');
-  parent.className = "col";
-  parent.appendChild(form);
 }
 
 function resetAddEventSection() {
