@@ -101,7 +101,7 @@ class Event {
         content: comment.content,
         event: { id: comment.event_id },
         user: { username: User.getUsernameFromId(comment.user_id)},
-        updated_at: comment.updated_at
+        updated_at: comment.updated_at // // TODO: update to JS naming convention
       }
       const thisComment = new Comment(comment.id, commentAttributes);
       thisComment.renderComment(commentsDiv);
@@ -129,7 +129,15 @@ function getEvents() {
   })
   .then(resp => resp.json())
   .then(response => {
-    response.data.forEach(event => {
+    const sortedArray = [...response.data];
+    console.log("Sorted array type", typeof sortedArray);
+    sortedArray.sort((a, b) => (a.attributes.attendees > b.attributes.attendees) ? -1 : 1);
+
+    console.log("Sorted array", sortedArray);
+    console.log("Original data", response.data);
+
+    // change response.data to sortedArray
+    sortedArray.forEach(event => {
       const thisEvent = new Event(event.id, event.attributes);
       thisEvent.renderEventCard();
     });
@@ -194,8 +202,17 @@ function updateEvent(eventId, attendees) {
   }
 
   fetch(`${EVENTS_URL}/${eventId}`, configObj)
+  // .then(res => {
+  //   if (!res.ok) {
+  //     return throw new Error(res)
+  //   }
+  //   return res.json()
+  // })
   .then(function(response) {
     console.log(response)
+    // TODO: add success message
+    // TODO: look into ARIA (accessible rich internet applications)
+    // Chrome VOX -> readability for those unable to read
   })
   .catch(err => alert(err));
 }

@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://allyship-corner-api.herokuapp.com";
 const EVENTS_URL = `${BASE_URL}/events`;
 const COMMENTS_URL = `${BASE_URL}/comments`;
 const USERS_URL = `${BASE_URL}/users`;
