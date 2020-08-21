@@ -1,7 +1,7 @@
 class User {
   // Upon instantiation of a User object, set
   // the id & username attributes and push into
-  // the "all" array
+  // the class array used to track all instances
   constructor(id, userAttributes) {
     this.id = id;
     this.username = userAttributes.username;

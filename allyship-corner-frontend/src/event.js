@@ -1,4 +1,7 @@
 class Event {
+  // Upon instantiation of an Event object, set
+  // all attributes and push into the class array
+  // used to track all instances
   constructor(id, eventAttributes) {
     this.id = id;
     this.name = eventAttributes.name;
@@ -66,6 +69,10 @@ class Event {
     attendBtn.className = "btn btn-success";
     attendBtn.innerText = "I'm interested";
     attendBtn.addEventListener('click', () => {
+      // The "attending" attribute of an event instance
+      // indicates whether the current user is attending or not.
+      // Thus, if the user is attending and the button is clicked,
+      // the number of attendees must decrease by one, and vice versa
       if (this.attending) {
         this.attendees -= 1;
         attendBtn.innerText = "I'm interested";
@@ -119,11 +126,12 @@ class Event {
 
 Event.all = [];
 
-// Data retrieval of all events
+// Fetch all events from the back-end
 function getEvents() {
   fetch(EVENTS_URL, {
     method: 'GET',
     headers: {
+      // Include the encrypted token for back-end authorization
       Authorization: `Bearer ${window.sessionStorage.accessToken}`
     }
   })
@@ -179,6 +187,8 @@ function createNewEvent(name, imagePath, location) {
       const newEvent = new Event(response.data.id, response.data.attributes);
       newEvent.renderEventCard();
 
+      // Clear the input fields for the adding new event form
+      // and hide the section again
       addEvent = !addEvent;
       name.value = '';
       imagePath.value = '';
@@ -217,11 +227,12 @@ function updateEvent(eventId, attendees) {
   .catch(err => alert(err));
 }
 
-// Remove an event from the database and then from the DOM
+// Remove an event from the database
 function removeEvent(eventId) {
   const configObj = {
     method: 'DELETE',
     headers: {
+      // Include the encrypted token for back-end authorization
       Authorization: `Bearer ${window.sessionStorage.accessToken}`
     }
   }
