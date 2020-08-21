@@ -1,6 +1,8 @@
 # The Allyship Corner
 Welcome to The Allyship Corner! This application is intended to be a community that provides users the ability to find events to support oppressed minority groups. Users can create new events, express their interest in current events, and comment on any event to bolster community relations.
 
+View a live version of the application here: https://jkellyphilly.github.io/allyship-corner/allyship-corner-frontend/
+
 ## Installation
 
 Fork and clone this repository down to your local environment, then run 'bundle install' to install all required gems from the Gemfile. Please note that the allyship-corner-backend folder is a sub-repository, and can be found here: https://github.com/jkellyphilly/allyship-corner-backend.
