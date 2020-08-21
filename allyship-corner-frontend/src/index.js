@@ -66,12 +66,16 @@ function showAddEvent() {
   });
 }
 
+// Hide the add event section and reset
+// the add event button's text
 function resetAddEventSection() {
   eventFormContainer.style.display = "none";
   addBtn.innerText = "Make a difference in this world. Add a new event!";
   addBtn.className = "btn btn-info";
 }
 
+// Opens the add event section and sets
+// the button to be a closing button
 function openAddEventSection() {
   eventFormContainer.style.display = "block";
   addBtn.innerText = "Close";
