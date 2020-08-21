@@ -1,4 +1,6 @@
 class Comment {
+  // Upon instantiation of a Comment object, set
+  // all attributes and push into the class array
   constructor(id, commentAttributes) {
     this.id = id;
     this.content = commentAttributes.content;
@@ -8,6 +10,7 @@ class Comment {
     Comment.all.push(this);
   }
 
+  // Render comment given the div it occupies
   renderComment(myDiv) {
     let a = document.createElement('a');
     a.style.backgroundColor = '#F8F8F8';
@@ -19,6 +22,8 @@ class Comment {
     text.innerHTML = `${this.username}`;
     comment.appendChild(text);
 
+    // Only show the delete comment button if the comment 
+    // belongs to the current user
     if (this.username === window.sessionStorage.currentUsername) {
       let deleteButton = document.createElement('button');
       deleteButton.className = "btn btn-link btn-sm";
@@ -81,6 +86,7 @@ class Comment {
     myDiv.appendChild(newCommentForm);
   }
 
+  // Find a comment by its ID
   static findById(id) {
     return this.all.find(comment => comment.id === id);
   }
@@ -88,6 +94,7 @@ class Comment {
 
 Comment.all = [];
 
+// Send POST request for creating new comment in database
 function createComment(myDiv, content, eventId) {
 
   let formData = {
@@ -99,6 +106,7 @@ function createComment(myDiv, content, eventId) {
   let configObj = {
     method: "POST",
     headers: {
+      // Include the encrypted token for back-end authorization
       Authorization: `Bearer ${window.sessionStorage.accessToken}`,
       "Content-Type": "application/json",
       Accept: "application/json"
@@ -110,8 +118,12 @@ function createComment(myDiv, content, eventId) {
   .then(resp => resp.json())
   .then(response => {
     if (response.message) {
+      // If we've reached here, then we have an error
+      // coming from the backend, so display it to the user
       alert(response.message);
     } else {
+      // If we've reached here, no error has been found.
+      // Create the new comment and render it
       const newComment = new Comment(response.data.id, response.data.attributes);
       newComment.renderComment(myDiv);
     }
@@ -119,10 +131,12 @@ function createComment(myDiv, content, eventId) {
   .catch(err => alert(err));
 }
 
+// Delete a comment from the database
 function removeComment(commentId) {
   const configObj = {
     method: 'DELETE',
     headers: {
+      // Include the encrypted token for back-end authorization
       Authorization: `Bearer ${window.sessionStorage.accessToken}`
     }
   }
