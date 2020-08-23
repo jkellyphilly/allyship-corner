@@ -57,38 +57,39 @@ class Event {
     // Number of attendees
     let numAttendees = document.createElement('p');
     numAttendees.className = "card-text";
-    numAttendees.innerHTML = `${this.attendees} attending`;
+    numAttendees.innerHTML = `${this.attendees.length} attending`;
     cardBody.appendChild(numAttendees);
 
     // Attend button
-    let interestedSection = document.createElement('p');
-    interestedSection.className = "card-text";
-    let smallClass = document.createElement('small');
-    smallClass.className = "text-muted";
-    let attendBtn = document.createElement('button');
-    attendBtn.className = "btn btn-success";
-    attendBtn.innerText = "I'm interested";
-    attendBtn.addEventListener('click', () => {
-      // The "attending" attribute of an event instance
-      // indicates whether the current user is attending or not.
-      // Thus, if the user is attending and the button is clicked,
-      // the number of attendees must decrease by one, and vice versa
-      if (this.attending) {
-        this.attendees -= 1;
-        attendBtn.innerText = "I'm interested";
-        attendBtn.className = "btn btn-success";
-      } else {
-        this.attendees += 1;
-        attendBtn.innerText = "I can no longer attend";
-        attendBtn.className = "btn btn-danger";
-      }
-      this.attending = !this.attending;
-      numAttendees.innerHTML = `${this.attendees} attending`;
-      updateEvent(this.id, this.attendees);
-    });
-    smallClass.appendChild(attendBtn);
-    interestedSection.appendChild(smallClass);
-    cardBody.appendChild(interestedSection);
+    // let interestedSection = document.createElement('p');
+    // interestedSection.className = "card-text";
+    // let smallClass = document.createElement('small');
+    // smallClass.className = "text-muted";
+    // let attendBtn = document.createElement('button');
+    // attendBtn.className = "btn btn-success";
+    // attendBtn.innerText = "I'm interested";
+    // attendBtn.addEventListener('click', () => {
+    //   // The "attending" attribute of an event instance
+    //   // indicates whether the current user is attending or not.
+    //   // Thus, if the user is attending and the button is clicked,
+    //   // the number of attendees must decrease by one, and vice versa
+    //   if (this.attending) {
+    //     // this.attendees -= 1;
+    //     attendBtn.innerText = "I'm interested";
+    //     attendBtn.className = "btn btn-success";
+    //   } else {
+    //     // this.attendees += 1;
+    //     attendBtn.innerText = "I can no longer attend";
+    //     attendBtn.className = "btn btn-danger";
+    //   }
+    //   this.attending = !this.attending;
+    //   numAttendees.innerHTML = `${this.attendees} attending`;
+    //   console.log("Reached")
+    //   // updateEvent(this.id, this.attendees);
+    // });
+    // smallClass.appendChild(attendBtn);
+    // interestedSection.appendChild(smallClass);
+    // cardBody.appendChild(interestedSection);
 
     row.appendChild(imgDiv);
     contentDiv.appendChild(cardBody);
@@ -96,9 +97,9 @@ class Event {
     thisDiv.appendChild(row);
 
     // Render the delete button if the event belongs to the current user
-    if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
-      renderDeleteButton(thisEventDiv, smallClass, this.id);
-    }
+    // if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
+    //   renderDeleteButton(thisEventDiv, smallClass, this.id);
+    // }
 
     // COMMENTS SECTION
     let commentsDiv = document.createElement('div');
@@ -138,17 +139,16 @@ function getEvents() {
   .then(resp => resp.json())
   .then(response => {
     const sortedArray = [...response.data];
-    console.log("Sorted array type", typeof sortedArray);
-    sortedArray.sort((a, b) => (a.attributes.attendees > b.attributes.attendees) ? -1 : 1);
-
-    console.log("Sorted array", sortedArray);
-    console.log("Original data", response.data);
-
-    // change response.data to sortedArray
-    sortedArray.forEach(event => {
+    // // Currently sorting by total number of attendees
+    // sortedArray.sort((a, b) => (a.attributes.attendees > b.attributes.attendees) ? -1 : 1);
+    //
+    // // change response.data to sortedArray
+    // sortedArray.forEach(event => {
+    response.data.forEach(event => {
       const thisEvent = new Event(event.id, event.attributes);
       thisEvent.renderEventCard();
     });
+    // console.log(response);
   })
   .catch(err => alert(err));
 }
@@ -163,8 +163,7 @@ function createNewEvent(name, imagePath, location) {
       name: name.value,
       image_url: imagePath.value,
       location: location.value,
-      user_id: window.sessionStorage.currentUserId,
-      attendees: 0
+      user_id: window.sessionStorage.currentUserId
     }
   }
 
