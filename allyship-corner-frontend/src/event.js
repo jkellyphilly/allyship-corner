@@ -7,11 +7,12 @@ class Event {
     this.name = eventAttributes.name;
     this.location = eventAttributes.location;
     this.attendees = eventAttributes.attendees;
+    this.numAttendees = eventAttributes.attendees.length;
     this.imagePath = eventAttributes.image_url;
     this.comments = eventAttributes.comments;
     this.userId = eventAttributes.user.id;
     this.userName = eventAttributes.user.username;
-    this.attending = false;
+    this.attending = determineIfAttending(eventAttributes.attendees);
     Event.all.push(this);
   }
 
@@ -61,35 +62,35 @@ class Event {
     cardBody.appendChild(numAttendees);
 
     // Attend button
-    // let interestedSection = document.createElement('p');
-    // interestedSection.className = "card-text";
-    // let smallClass = document.createElement('small');
-    // smallClass.className = "text-muted";
-    // let attendBtn = document.createElement('button');
-    // attendBtn.className = "btn btn-success";
-    // attendBtn.innerText = "I'm interested";
-    // attendBtn.addEventListener('click', () => {
-    //   // The "attending" attribute of an event instance
-    //   // indicates whether the current user is attending or not.
-    //   // Thus, if the user is attending and the button is clicked,
-    //   // the number of attendees must decrease by one, and vice versa
-    //   if (this.attending) {
-    //     // this.attendees -= 1;
-    //     attendBtn.innerText = "I'm interested";
-    //     attendBtn.className = "btn btn-success";
-    //   } else {
-    //     // this.attendees += 1;
-    //     attendBtn.innerText = "I can no longer attend";
-    //     attendBtn.className = "btn btn-danger";
-    //   }
-    //   this.attending = !this.attending;
-    //   numAttendees.innerHTML = `${this.attendees} attending`;
-    //   console.log("Reached")
-    //   // updateEvent(this.id, this.attendees);
-    // });
-    // smallClass.appendChild(attendBtn);
-    // interestedSection.appendChild(smallClass);
-    // cardBody.appendChild(interestedSection);
+    let interestedSection = document.createElement('p');
+    interestedSection.className = "card-text";
+    let smallClass = document.createElement('small');
+    smallClass.className = "text-muted";
+    let attendBtn = document.createElement('button');
+    attendBtn.className = this.attending ? "btn btn-danger" : "btn btn-success";
+    attendBtn.innerText = this.attending ? "I can no longer attend" : "I'm interested";
+    attendBtn.addEventListener('click', () => {
+      // The "attending" attribute of an event instance
+      // indicates whether the current user is attending or not.
+      // Thus, if the user is attending and the button is clicked,
+      // the number of attendees must decrease by one, and vice versa
+      if (this.attending) {
+        this.numAttendees -= 1;
+        attendBtn.innerText = "I'm interested";
+        attendBtn.className = "btn btn-success";
+      } else {
+        this.numAttendees += 1;
+        attendBtn.innerText = "I can no longer attend";
+        attendBtn.className = "btn btn-danger";
+      }
+      this.attending = !this.attending;
+      numAttendees.innerHTML = `${this.numAttendees} attending`;
+      console.log("Reached")
+      // updateEvent(this.id, this.attendees);
+    });
+    smallClass.appendChild(attendBtn);
+    interestedSection.appendChild(smallClass);
+    cardBody.appendChild(interestedSection);
 
     row.appendChild(imgDiv);
     contentDiv.appendChild(cardBody);
@@ -97,9 +98,9 @@ class Event {
     thisDiv.appendChild(row);
 
     // Render the delete button if the event belongs to the current user
-    // if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
-    //   renderDeleteButton(thisEventDiv, smallClass, this.id);
-    // }
+    if (this.userId === parseInt(window.sessionStorage.currentUserId)) {
+      renderDeleteButton(thisEventDiv, smallClass, this.id);
+    }
 
     // COMMENTS SECTION
     let commentsDiv = document.createElement('div');
@@ -138,17 +139,11 @@ function getEvents() {
   })
   .then(resp => resp.json())
   .then(response => {
-    const sortedArray = [...response.data];
-    // // Currently sorting by total number of attendees
-    // sortedArray.sort((a, b) => (a.attributes.attendees > b.attributes.attendees) ? -1 : 1);
-    //
-    // // change response.data to sortedArray
-    // sortedArray.forEach(event => {
     response.data.forEach(event => {
       const thisEvent = new Event(event.id, event.attributes);
       thisEvent.renderEventCard();
     });
-    // console.log(response);
+    console.log(response);
   })
   .catch(err => alert(err));
 }
@@ -253,4 +248,10 @@ function renderDeleteButton(divToRemove, parent, eventId) {
     divToRemove.remove();
   })
   parent.appendChild(deleteButton);
+}
+
+// Returns false if the current user is not an attendee
+// for the attendees present
+function determineIfAttending(attendees) {
+  return attendees.find(att => att.user_id == window.sessionStorage.currentUserId) == undefined ? false : true
 }
