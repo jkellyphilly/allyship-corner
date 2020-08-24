@@ -85,8 +85,7 @@ class Event {
       }
       this.attending = !this.attending;
       numAttendees.innerHTML = `${this.numAttendees} attending`;
-      console.log("Reached")
-      // updateEvent(this.id, this.attendees);
+      updateEvent(this.id, this.attending);
     });
     smallClass.appendChild(attendBtn);
     interestedSection.appendChild(smallClass);
@@ -193,8 +192,9 @@ function createNewEvent(name, imagePath, location) {
   .catch(err => alert(err));
 }
 
-// Update an event's number of attendees
-function updateEvent(eventId, attendees) {
+// Update an event's number of attendees.
+// Need to send over the currentUserId & whether or not to add or remove
+function updateEvent(eventId, isAdding) {
   let configObj = {
     method: "PATCH",
     headers: {
@@ -202,15 +202,16 @@ function updateEvent(eventId, attendees) {
       "Content-Type": "application/json",
       Accept: "application/json"
     },
-    body: JSON.stringify({ attendees: attendees })
+    body: JSON.stringify({ attendee_id: window.sessionStorage.currentUserId, is_adding: isAdding })
   }
 
   fetch(`${EVENTS_URL}/${eventId}`, configObj)
-  // .then(res => {
-  //   if (!res.ok) {
-  //     return throw new Error(res)
-  //   }
-  //   return res.json()
+  .then(res => res.json())
+    // TODO: add error handling here
+    // if (!res.ok) {
+    //   return throw new Error(res);
+    // }
+    // return res.json();
   // })
   .then(function(response) {
     console.log(response)
