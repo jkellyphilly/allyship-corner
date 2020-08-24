@@ -109,7 +109,7 @@ class Event {
         content: comment.content,
         event: { id: comment.event_id },
         user: { username: User.getUsernameFromId(comment.user_id)},
-        updated_at: comment.updated_at // // TODO: update to JS naming convention
+        updated_at: comment.updated_at 
       }
       const thisComment = new Comment(comment.id, commentAttributes);
       thisComment.renderComment(commentsDiv);
@@ -192,8 +192,8 @@ function createNewEvent(name, imagePath, location) {
   .catch(err => alert(err));
 }
 
-// Update an event's number of attendees.
-// Need to send over the currentUserId & whether or not to add or remove
+// Update an event's number of attendees. Need to send over
+// the currentUserId & whether or not to add or remove (isAdding)
 function updateEvent(eventId, isAdding) {
   let configObj = {
     method: "PATCH",
