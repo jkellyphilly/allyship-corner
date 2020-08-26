@@ -15,7 +15,7 @@ From your command line, navigate into the allyship-corner-frontend folder and ru
 
 Sign up with a unique username (that doesn't yet exist in our database) and password, then watch as all events and corresponding comments are rendered on the page post-server call. Create an event, comment on existing events, or click on the "I'm interested!" button to update the attendee count and signal your interest.
 
-For a more thorough explanation of how to use this app, check out this video: https://www.youtube.com/watch?v=Gcph4zjZFCQ&t=3s
+For a more thorough explanation of how to use this app, check out this video: https://youtu.be/b3VN6bPDHK8
 
 ## Development
 
